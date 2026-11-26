@@ -1,0 +1,44 @@
+{
+  "fps": 12,
+  "width": 1280,
+  "format": "webp",
+  "scenes": [
+    {
+      "name": "scene-001",
+      "source": "001.mp4",
+      "directory": "sequences/scene-001",
+      "startFrame": 0,
+      "endFrame": 644,
+      "frameCount": 645,
+      "sizeMB": 25.81
+    },
+    {
+      "name": "scene-002",
+      "source": "002.mp4",
+      "directory": "sequences/scene-002",
+      "startFrame": 645,
+      "endFrame": 739,
+      "frameCount": 95,
+      "sizeMB": 2.61
+    },
+    {
+      "name": "scene-003",
+      "source": "003.mp4",
+      "directory": "sequences/scene-003",
+      "startFrame": 740,
+      "endFrame": 802,
+      "frameCount": 63,
+      "sizeMB": 10.01
+    },
+    {
+      "name": "scene-004",
+      "source": "004.mp4",
+      "directory": "sequences/scene-004",
+      "startFrame": 803,
+      "endFrame": 908,
+      "frameCount": 106,
+      "sizeMB": 4.72
+    }
+  ],
+  "totalFrames": 909
+}

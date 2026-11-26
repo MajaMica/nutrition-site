@@ -1,0 +1,16 @@
+@import "tailwindcss" theme(static);
+
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/manrope";
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./typography.css";
+@import "./header.css";
+@import "./home.css";
+
+@source "../../app/**/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";

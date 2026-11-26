@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment
+.env
+.env.*
+!.env.example
+web/wp-config.php
+auth.json
+*.pem
+*.key
+
+# WordPress
+web/wp-admin/
+web/wp-includes/
+web/*.php
+web/wp-content/uploads/
+web/wp-content/plugins/
+web/wp-content/cache/
+web/wp-content/upgrade/
+
+# Build
+web/wp-content/themes/nutrition/public/build/
+web/wp-content/themes/nutrition/public/hot/
+
+# Local
+.ddev/.dbimageBuild/
+.ddev/.webimageBuild/
+.ddev/config.local.yaml
+.ddev/.env*
+*.log
+*.sql
+*.sql.gz
+
+# Media sources
+*.mp4
+*.mov
+
+# System
+.DS_Store
+Thumbs.db
