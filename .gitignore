@@ -43,3 +43,4 @@ Thumbs.db
 # Default themes
 web/wp-content/themes/*
 !web/wp-content/themes/nutrition/
+/web/wp-content/languages/

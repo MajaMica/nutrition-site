@@ -2,62 +2,67 @@
     $features = [
         [
             'number' => '01',
-            'label' => 'Personalised nutrition',
-            'title' => 'It starts with you.',
-            'description' => 'Your goals, activity level and dietary preferences shape your daily calorie and macronutrient targets.',
+            'label' => trans('home.nutrition_app.features.0.label'),
+            'title' => trans('home.nutrition_app.features.0.title'),
+            'description' => trans('home.nutrition_app.features.0.description'),
             'image' => 'app001.webp',
         ],
         [
             'number' => '02',
-            'label' => 'Daily insights',
-            'title' => 'Know what fuels you.',
-            'description' => 'Understand your daily energy needs and explore the nutritional value of the food you eat.',
+            'label' => trans('home.nutrition_app.features.1.label'),
+            'title' => trans('home.nutrition_app.features.1.title'),
+            'description' => trans('home.nutrition_app.features.1.description'),
             'image' => 'app002.webp',
         ],
         [
             'number' => '03',
-            'label' => 'Recipes & meal planning',
-            'title' => 'Make every meal count.',
-            'description' => 'Discover recipes, explore ingredients and organise your meals around your lifestyle.',
+            'label' => trans('home.nutrition_app.features.2.label'),
+            'title' => trans('home.nutrition_app.features.2.title'),
+            'description' => trans('home.nutrition_app.features.2.description'),
             'image' => 'app003.webp',
         ],
         [
             'number' => '04',
-            'label' => 'Nutritional intelligence',
-            'title' => 'Every detail matters.',
-            'description' => 'Adjust your portions and see how calories and macronutrients change with every ingredient.',
+            'label' => trans('home.nutrition_app.features.3.label'),
+            'title' => trans('home.nutrition_app.features.3.title'),
+            'description' => trans('home.nutrition_app.features.3.description'),
             'image' => 'app004.webp',
         ],
     ];
 @endphp
 
-<section class="nutrition-app" data-nutrition-app>
+<section
+    class="nutrition-app section-transition"
+    data-nutrition-app
+>
     <div class="nutrition-app-intro">
         <span class="type-label nutrition-app-eyebrow">
-            The next chapter in nutrition
+            {{ trans('home.nutrition_app.eyebrow') }}
         </span>
 
         <h2 class="nutrition-app-heading">
-            Your nutrition.<br>
-            <em>Your potential.</em>
+            {{ trans('home.nutrition_app.title.0') }}<br>
+            <em>{{ trans('home.nutrition_app.title.1') }}</em>
         </h2>
 
         <p class="type-body nutrition-app-lead">
-            Culinary expertise meets intelligent technology.
-            A more personal way to eat, plan and live well.
+            {{ trans('home.nutrition_app.lead') }}
         </p>
 
         <span class="nutrition-app-badge type-label">
             <span></span>
-            Coming soon
+            {{ trans('home.nutrition_app.badge') }}
         </span>
     </div>
 
-    <div class="nutrition-app-story" data-app-story>
+    <div
+    class="nutrition-app-story section-transition-source"
+    data-app-story
+>
         <div class="nutrition-app-stage" data-app-stage>
 
             <div class="nutrition-app-watermark" aria-hidden="true">
-                Nutrition.
+                {{ trans('home.nutrition_app.watermark') }}
             </div>
 
             <div class="nutrition-app-features">
@@ -90,7 +95,7 @@
                                 src="{{ Vite::asset('resources/images/app/' . $feature['image']) }}"
                                 class="nutrition-app-screenshot"
                                 data-app-screen="{{ $loop->index }}"
-                                alt="Nutrition application preview {{ $feature['number'] }}"
+                                alt="{{ trans('home.nutrition_app.screen_alt', ['number' => $feature['number']]) }}"
                                 loading="lazy"
                                 decoding="async"
                             >
@@ -114,47 +119,48 @@
         </div>
     </div>
 
-    <div class="nutrition-ai" data-nutrition-ai>
+    <div
+    class="nutrition-ai section-transition section-transition-source"
+    data-nutrition-ai
+    data-section-transition="[data-app-story]"
+>
         <div class="nutrition-ai-inner">
 
             <div class="nutrition-ai-copy">
                 <span class="type-label nutrition-ai-label">
-                    AI-powered nutrition — In development
+                    {{ trans('home.nutrition_app.ai.label') }}
                 </span>
 
                 <h2 class="nutrition-ai-title">
-                    Intelligence meets
-                    <em>individuality.</em>
+                    {{ trans('home.nutrition_app.ai.title.0') }}
+                    <em>{{ trans('home.nutrition_app.ai.title.1') }}</em>
                 </h2>
 
                 <p class="type-body">
-                    We're developing an AI-powered nutrition
-                    assistant designed to make nutritional
-                    information more relevant to your goals,
-                    preferences and everyday choices.
+                    {{ trans('home.nutrition_app.ai.description') }}
                 </p>
 
                 <span class="nutrition-ai-status type-label">
-                    Coming soon
+                    {{ trans('home.nutrition_app.ai.status') }}
                 </span>
             </div>
 
             <div class="nutrition-ai-preview">
                 <div class="nutrition-ai-preview-header">
                     <span class="nutrition-ai-symbol">✳</span>
-                    Nutrition Assistant
+                    {{ trans('home.nutrition_app.ai.assistant') }}
                     <span class="nutrition-ai-preview-dot"></span>
                 </div>
 
                 <div class="nutrition-ai-message">
-                    What could I eat after my workout?
+                    {{ trans('home.nutrition_app.ai.message') }}
                 </div>
 
                 <div class="nutrition-ai-response">
                     <span class="nutrition-ai-symbol">✳</span>
 
                     <div>
-                        <p>Personalised nutrition assistance</p>
+                        <p>{{ trans('home.nutrition_app.ai.response') }}</p>
 
                         <div class="nutrition-ai-lines">
                             <span></span>
@@ -165,7 +171,7 @@
                 </div>
 
                 <div class="nutrition-ai-preview-footer">
-                    Concept preview — In development
+                    {{ trans('home.nutrition_app.ai.preview') }}
                 </div>
             </div>
 

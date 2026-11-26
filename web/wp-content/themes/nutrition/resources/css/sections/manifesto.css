@@ -1,0 +1,124 @@
+.manifesto {
+    position: relative;
+    width: 100%;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    padding: clamp(100px, 12vw, 230px) var(--site-gutter);
+}
+
+.manifesto-inner {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+}
+
+.manifesto-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 960px;
+    margin-inline: auto;
+}
+
+.manifesto-label {
+    color: var(--color-gold);
+    margin-bottom: 32px;
+}
+
+.manifesto-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6.5vw, 124px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+.manifesto-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.12em;
+}
+
+.manifesto-line > span {
+    display: block;
+}
+
+.manifesto-line:last-child {
+    color: var(--color-gold);
+    font-style: italic;
+}
+
+.manifesto-lead {
+    max-width: 680px;
+    margin-top: 32px;
+    color: var(--color-tan);
+    line-height: 1.85;
+    text-wrap: pretty;
+}
+
+.manifesto-details {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(40px, 8vw, 140px);
+    margin-top: clamp(64px, 8vw, 150px);
+    padding-top: clamp(40px, 5vw, 90px);
+    border-top: 1px solid rgba(180, 154, 114, 0.25);
+}
+
+.manifesto-details h3 {
+    font-size: clamp(32px, 3vw, 56px);
+    line-height: 1.15;
+}
+
+.manifesto-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--color-tan);
+    line-height: 1.85;
+}
+
+.manifesto-link {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 24px;
+    padding-bottom: 10px;
+    margin-top: 12px;
+    border-bottom: 1px solid var(--color-gold);
+    color: var(--color-cream);
+    font-size: 13px;
+    transition: color 300ms ease;
+}
+
+.manifesto-link span {
+    transition: transform 300ms ease;
+}
+
+.manifesto-link:hover {
+    color: var(--color-gold);
+}
+
+.manifesto-link:hover span {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 767px) {
+    .manifesto {
+        padding-block: 100px;
+    }
+
+    .manifesto-title {
+        font-size: clamp(42px, 9vw, 72px);
+    }
+
+    .manifesto-details {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    .manifesto-lead {
+        margin-top: 24px;
+    }
+}

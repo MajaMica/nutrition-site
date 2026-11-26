@@ -2,27 +2,27 @@
     $chapters = [
         [
             'number' => '01',
-            'label' => 'The craft',
-            'title' => 'Crafted with purpose.',
-            'description' => 'Exceptional food begins with thoughtfully selected ingredients, respect for nature and attention to every detail. Quality is not an addition. It is the foundation.',
+            'label' => trans('home.philosophy.chapters.0.label'),
+            'title' => trans('home.philosophy.chapters.0.title'),
+            'description' => trans('home.philosophy.chapters.0.description'),
             'image' => 'mixfood.webp',
-            'alt' => 'A selection of fresh and diverse ingredients',
+            'alt' => trans('home.philosophy.chapters.0.alt'),
         ],
         [
             'number' => '02',
-            'label' => 'The science',
-            'title' => 'Food as medicine.',
-            'description' => 'Beyond flavour, food plays a fundamental role in wellbeing, recovery and performance. Combining culinary expertise with nutritional science, every ingredient serves a greater purpose.',
+            'label' => trans('home.philosophy.chapters.1.label'),
+            'title' => trans('home.philosophy.chapters.1.title'),
+            'description' => trans('home.philosophy.chapters.1.description'),
             'image' => 'medicine.webp',
-            'alt' => 'Golden infusion and natural ingredients',
+            'alt' => trans('home.philosophy.chapters.1.alt'),
         ],
         [
             'number' => '03',
-            'label' => 'The individual',
-            'title' => 'Built around you.',
-            'description' => 'Your lifestyle. Your training. Your ambitions. A deeply personal approach to nutrition, shaped around who you are, how you live and what you want to achieve.',
+            'label' => trans('home.philosophy.chapters.2.label'),
+            'title' => trans('home.philosophy.chapters.2.title'),
+            'description' => trans('home.philosophy.chapters.2.description'),
             'image' => 'nemanja001.webp',
-            'alt' => 'Nemanja, private chef and nutrition specialist',
+            'alt' => trans('home.philosophy.chapters.2.alt'),
         ],
     ];
 @endphp
@@ -46,7 +46,7 @@
         <div class="philosophy-overlay"></div>
 
         <div class="philosophy-caption type-label">
-            The art of living well
+            {{ trans('home.philosophy.caption') }}
         </div>
     </div>
 

@@ -1,6 +1,9 @@
 import 'lenis/dist/lenis.css'
 
 import { initAnimationEngine } from './core/animation-engine'
+import { initOrganicBackgrounds } from './core/organic-background'
+import { initSectionTransitions } from './core/section-transition'
+import { initPerformance } from './performance'
 
 import {
     initHome,
@@ -23,8 +26,11 @@ async function init() {
     initPhilosophy()
     initManifesto()
     initServices()
+    initPerformance()
     initNutritionApp()
     initJournal()
+    initOrganicBackgrounds()
+    initSectionTransitions()
 }
 
 if (document.readyState === 'loading') {

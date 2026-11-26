@@ -2,79 +2,97 @@
     $recipes = [
         [
             'number' => '01',
-            'category' => 'Plant-based',
-            'title' => 'Naturally nourishing.',
+            'category' => trans('home.journal.recipes.0.category'),
+            'title' => trans('home.journal.recipes.0.title'),
             'image' => 'recipe001.webp',
         ],
         [
             'number' => '02',
-            'category' => 'Balanced nutrition',
-            'title' => 'Everyday excellence.',
+            'category' => trans('home.journal.recipes.1.category'),
+            'title' => trans('home.journal.recipes.1.title'),
             'image' => 'recipe002.webp',
         ],
         [
             'number' => '03',
-            'category' => 'Culinary craft',
-            'title' => 'Beyond the ordinary.',
+            'category' => trans('home.journal.recipes.2.category'),
+            'title' => trans('home.journal.recipes.2.title'),
             'image' => 'recipe004.webp',
         ],
         [
             'number' => '04',
-            'category' => 'Refined dining',
-            'title' => 'The beauty of simplicity.',
+            'category' => trans('home.journal.recipes.3.category'),
+            'title' => trans('home.journal.recipes.3.title'),
             'image' => 'recipe003.webp',
         ],
         [
             'number' => '05',
-            'category' => 'Mediterranean inspiration',
-            'title' => 'Inspired by nature.',
+            'category' => trans('home.journal.recipes.4.category'),
+            'title' => trans('home.journal.recipes.4.title'),
             'image' => 'recipe005.webp',
         ],
     ];
 @endphp
 
-<section class="culinary-journal" data-journal>
+<section
+    class="culinary-journal organic-surface section-transition"
+    data-journal
+    data-section-transition="[data-nutrition-ai]"
+>
+    @include('partials.organic-background')
+
     <div class="journal-inner">
 
         <header class="journal-header" data-journal-header>
             <span class="type-label journal-eyebrow">
-                The culinary journal
+                {{ trans('home.journal.eyebrow') }}
             </span>
 
             <h2 class="journal-heading">
-                Food with<br>
-                <em>a purpose.</em>
+                {{ trans('home.journal.title.0') }}<br>
+                <em>{{ trans('home.journal.title.1') }}</em>
             </h2>
 
             <p class="type-body journal-lead">
-                A collection of culinary creations inspired
-                by balance, individuality and the pleasure
-                of eating well.
+                {{ trans('home.journal.lead') }}
             </p>
         </header>
 
-        <div class="journal-grid">
+        <div class="journal-stack" data-journal-stack>
             @foreach ($recipes as $recipe)
                 <article
-                    class="journal-item journal-item-{{ $loop->iteration }}"
-                    data-journal-item
+                    class="journal-stack-item"
+                    style="--card-index: {{ $loop->index }}"
+                    data-journal-card
                 >
-                    <figure class="journal-figure" data-journal-figure>
-                        <img
-                            src="{{ Vite::asset('resources/images/recipes/' . $recipe['image']) }}"
-                            alt="{{ $recipe['category'] }}"
-                            loading="lazy"
-                            decoding="async"
-                        >
-                    </figure>
+                    <div class="journal-card" data-journal-card-inner>
 
-                    <div class="journal-meta">
-                        <span class="type-label">
-                            {{ $recipe['number'] }} —
-                            {{ $recipe['category'] }}
-                        </span>
+                        <figure class="journal-card-media">
+                            <img
+                                src="{{ Vite::asset('resources/images/recipes/' . $recipe['image']) }}"
+                                alt="{{ $recipe['category'] }}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </figure>
 
-                        <h3>{{ $recipe['title'] }}</h3>
+                        <div class="journal-card-overlay"></div>
+
+                        <div class="journal-card-content">
+                            <span class="journal-card-accent"></span>
+
+                            <span class="journal-card-number type-label">
+                                {{ $recipe['number'] }}
+                            </span>
+
+                            <h3 class="journal-card-title">
+                                {{ $recipe['title'] }}
+                            </h3>
+
+                            <span class="journal-card-category type-label">
+                                {{ $recipe['category'] }}
+                            </span>
+                        </div>
+
                     </div>
                 </article>
             @endforeach
@@ -82,14 +100,14 @@
 
         <div class="journal-footer">
             <span class="type-label">
-                Thoughtfully created. Personally inspired.
+                {{ trans('home.journal.footer') }}
             </span>
 
             <a
                 href="{{ home_url('/recipes/') }}"
                 class="journal-link"
             >
-                Explore the culinary journal
+                {{ trans('home.journal.cta') }}
                 <span aria-hidden="true">↗</span>
             </a>
         </div>

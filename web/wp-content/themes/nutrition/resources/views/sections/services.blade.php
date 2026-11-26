@@ -1,24 +1,27 @@
 @php
     $chapters = [
         [
-            'label' => 'The craft',
-            'title' => 'Crafted with intention.',
-            'description' => 'Every ingredient. Every detail. Every decision.',
+            'label' => trans('home.services.chapters.0.label'),
+            'title' => trans('home.services.chapters.0.title'),
+            'description' => trans('home.services.chapters.0.description'),
         ],
         [
-            'label' => 'The performance',
-            'title' => 'Fuel your potential.',
-            'description' => 'Where culinary expertise meets purposeful nutrition.',
+            'label' => trans('home.services.chapters.1.label'),
+            'title' => trans('home.services.chapters.1.title'),
+            'description' => trans('home.services.chapters.1.description'),
         ],
         [
-            'label' => 'The experience',
-            'title' => 'Made for you.',
-            'description' => 'Private dining. Personalised nutrition. Your lifestyle.',
+            'label' => trans('home.services.chapters.2.label'),
+            'title' => trans('home.services.chapters.2.title'),
+            'description' => trans('home.services.chapters.2.description'),
         ],
     ];
 @endphp
 
-<section class="services-film" data-services>
+<section
+    class="services-film section-transition-source"
+    data-services
+>
     <div class="services-film-stage" data-services-stage>
 
         <video

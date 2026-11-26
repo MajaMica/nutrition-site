@@ -1,0 +1,303 @@
+.culinary-journal {
+    position: relative;
+    width: 100%;
+    color: var(--color-forest);
+    background: var(--color-cream);
+    padding-bottom: var(--section-space-lg);
+    overflow: clip;
+    isolation: isolate;
+}
+
+.culinary-journal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(160px, 20vw, 320px);
+    background: linear-gradient(
+        180deg,
+        #0d0d0d,
+        var(--color-forest) 20%,
+        transparent
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.journal-inner {
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+    position: relative;
+    z-index: 1;
+}
+
+.journal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: clamp(220px, 24vw, 400px);
+    padding-bottom: clamp(64px, 8vw, 120px);
+}
+
+.journal-eyebrow {
+    color: var(--color-forest);
+    margin-bottom: 28px;
+}
+
+.journal-heading {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 11vw, 180px);
+    line-height: 0.9;
+    font-weight: 400;
+    letter-spacing: -0.045em;
+}
+
+.journal-heading em {
+    color: var(--color-olive);
+    font-weight: 400;
+}
+
+.journal-lead {
+    max-width: 520px;
+    margin-top: 36px;
+    line-height: 1.85;
+}
+
+.journal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(38, 56, 43, 0.2);
+    margin-top: clamp(64px, 8vw, 120px);
+}
+
+.journal-footer > span {
+    color: var(--color-forest);
+    opacity: 0.75;
+}
+
+.journal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-olive);
+    font-size: 14px;
+    transition: color 300ms ease;
+}
+
+.journal-link span {
+    transition: transform 300ms ease;
+}
+
+.journal-link:hover {
+    color: var(--color-olive);
+}
+
+.journal-link:hover span {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 767px) {
+    .journal-header {
+        padding-top: 200px;
+        padding-bottom: 64px;
+    }
+
+    .journal-heading {
+        font-size: clamp(64px, 15vw, 100px);
+    }
+
+.journal-item {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+
+.journal-meta {
+        padding-top: 18px;
+    }
+
+    .journal-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.culinary-journal > .organic-background {
+    mask-image: linear-gradient(
+        180deg,
+        transparent,
+        #000 400px
+    );
+}
+
+.journal-stack {
+    --stack-top: calc(var(--header-height) + 24px);
+    --stack-offset: 12px;
+
+    position: relative;
+    width: 100%;
+    max-width: 880px;
+    margin-inline: auto;
+}
+
+.journal-stack-item {
+    position: sticky;
+    top: calc(
+        var(--stack-top) +
+        var(--card-index) * var(--stack-offset)
+    );
+    z-index: calc(var(--card-index) + 1);
+    padding-bottom: clamp(48px, 6vw, 96px);
+}
+
+.journal-stack-item:last-child {
+    padding-bottom: 0;
+}
+
+.journal-card {
+    position: relative;
+    width: 100%;
+    height: min(840px, 72svh);
+    border-radius: 20px;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--color-forest);
+    border: 1px solid rgba(180, 154, 114, 0.4);
+    box-shadow:
+        0 30px 80px rgba(20, 23, 19, 0.16),
+        0 8px 24px rgba(20, 23, 19, 0.08);
+    transform-origin: center top;
+}
+
+.journal-card-media {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.journal-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform-origin: center;
+}
+
+.journal-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 20%,
+        rgba(20, 23, 19, 0.04) 35%,
+        rgba(20, 23, 19, 0.32) 55%,
+        rgba(20, 23, 19, 0.78) 80%,
+        rgba(20, 23, 19, 0.94) 100%
+    );
+}
+
+.journal-card-content {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: clamp(28px, 4vw, 64px);
+    color: var(--color-cream);
+}
+
+.journal-card-accent {
+    display: block;
+    width: 36px;
+    height: 2px;
+    margin-bottom: 6px;
+    background: var(--color-gold);
+}
+
+.journal-card-number {
+    color: var(--color-tan);
+    letter-spacing: 0.25em;
+}
+
+.journal-card-title {
+    max-width: 100%;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 5.5vw, 96px);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--color-cream);
+    text-wrap: balance;
+}
+
+.journal-card-category {
+    color: var(--color-tan);
+    letter-spacing: 0.18em;
+}
+
+.admin-bar .journal-stack {
+    --stack-top: calc(var(--header-height) + 56px);
+}
+
+@media (max-width: 782px) {
+    .admin-bar .journal-stack {
+        --stack-top: calc(var(--header-height) + 62px);
+    }
+}
+
+@media (max-width: 767px) {
+    .journal-stack {
+        --stack-top: calc(var(--header-height) + 16px);
+        --stack-offset: 8px;
+    }
+
+    .journal-stack-item {
+        padding-bottom: 40px;
+    }
+
+    .journal-card {
+        height: min(560px, 64svh);
+        border-radius: 16px;
+    }
+
+    .journal-card-content {
+        padding: 28px 24px;
+        gap: 10px;
+    }
+
+    .journal-card-title {
+        font-size: clamp(36px, 9vw, 60px);
+    }
+
+    .journal-card-category {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+    }
+}
+
+@media (max-height: 600px),
+       (prefers-reduced-motion: reduce) {
+    .journal-stack-item {
+        position: relative;
+        top: auto;
+    }
+
+    .journal-card {
+        height: auto;
+        min-height: 420px;
+        aspect-ratio: 4 / 3;
+    }
+}

@@ -1,0 +1,138 @@
+.services-film {
+    position: relative;
+    width: 100%;
+    background: var(--color-ink);
+}
+
+.services-film-stage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.services-film-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+
+.services-film-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            ellipse at top left,
+            rgba(20, 23, 19, 0.85) 0%,
+            rgba(20, 23, 19, 0.45) 12%,
+            transparent 30%
+        ),
+        radial-gradient(
+            ellipse at bottom right,
+            rgba(20, 23, 19, 0.65) 0%,
+            rgba(20, 23, 19, 0.25) 12%,
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            var(--color-ink) 0%,
+            transparent 25%,
+            transparent 70%,
+            var(--color-ink) 100%
+        ),
+        radial-gradient(
+            ellipse at center,
+            rgba(20, 23, 19, 0.35),
+            rgba(20, 23, 19, 0.15)
+        );
+}
+
+.services-film-story {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.services-film-chapter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 2vw, 32px);
+    padding-inline: var(--site-gutter);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.services-film-chapter:first-child {
+    opacity: 1;
+    visibility: visible;
+}
+
+.services-film-label {
+    color: var(--color-gold);
+}
+
+.services-film-title {
+    max-width: 1200px;
+    color: var(--color-cream);
+    font-size: clamp(48px, 7.5vw, 132px);
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
+}
+
+.services-film-description {
+    max-width: 600px;
+    color: var(--color-cream);
+    font-size: clamp(15px, 1.2vw, 19px);
+    line-height: 1.7;
+}
+
+@media (max-width: 767px) {
+    .services-film-video {
+        object-position: 55% center;
+    }
+
+    .services-film-title {
+        font-size: clamp(48px, 11vw, 80px);
+    }
+
+    .services-film-description {
+        max-width: 320px;
+    }
+
+    .services-film-chapter {
+        gap: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .services-film-stage {
+        height: auto;
+        min-height: 100dvh;
+    }
+
+    .services-film-story {
+        position: relative;
+        padding-block: 120px;
+    }
+
+    .services-film-chapter {
+        position: relative;
+        inset: auto;
+        min-height: 50vh;
+        opacity: 1;
+        visibility: visible;
+    }
+}

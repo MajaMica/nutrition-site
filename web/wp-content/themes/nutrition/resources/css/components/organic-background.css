@@ -1,0 +1,77 @@
+.organic-surface {
+    position: relative;
+    isolation: isolate;
+}
+
+.organic-background {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
+.organic-blob {
+    position: absolute;
+    width: clamp(400px, 60vw, 1000px);
+    aspect-ratio: 1;
+    filter: blur(65px);
+    pointer-events: none;
+    transform-origin: center;
+}
+
+.organic-blob--one {
+    top: 2%;
+    right: -12%;
+    border-radius: 63% 37% 54% 46% / 42% 58% 42% 58%;
+    background: #84916B;
+    opacity: 0.42;
+}
+
+.organic-blob--two {
+    top: 25%;
+    left: -15%;
+    border-radius: 38% 62% 68% 32% / 53% 36% 64% 47%;
+    background: #D6C8B5;
+    opacity: 0.85;
+}
+
+.organic-blob--three {
+    top: 52%;
+    right: -10%;
+    border-radius: 58% 42% 35% 65% / 45% 65% 35% 55%;
+    background: #B49A72;
+    opacity: 0.32;
+}
+
+.organic-blob--four {
+    bottom: -5%;
+    left: -12%;
+    border-radius: 45% 55% 62% 38% / 61% 39% 61% 39%;
+    background: #84916B;
+    opacity: 0.38;
+}
+
+@media (max-width: 767px) {
+    .organic-blob {
+        width: clamp(320px, 100vw, 600px);
+        filter: blur(40px);
+    }
+
+    .organic-blob--one {
+        right: -25%;
+    }
+
+    .organic-blob--two {
+        left: -30%;
+    }
+
+    .organic-blob--three {
+        right: -25%;
+    }
+
+    .organic-blob--four {
+        left: -30%;
+    }
+}

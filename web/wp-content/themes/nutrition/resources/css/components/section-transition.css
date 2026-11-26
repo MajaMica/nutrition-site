@@ -1,0 +1,55 @@
+.section-transition {
+    position: relative;
+    isolation: isolate;
+    z-index: 2;
+}
+
+.section-transition-source {
+    position: relative;
+    z-index: 1;
+}
+
+.nutrition-app {
+    position: relative;
+    z-index: 1;
+}
+
+.nutrition-app-intro {
+    background: var(--color-cream);
+    padding-top: clamp(100px, 12vw, 200px);
+}
+
+.nutrition-app-story {
+    background: var(--color-cream);
+}
+
+.nutrition-ai {
+    background: #0d0d0d;
+    padding-top: clamp(100px, 12vw, 180px);
+    z-index: 2;
+}
+
+.culinary-journal {
+    z-index: 3;
+}
+
+.culinary-journal::before {
+    display: none;
+}
+
+.culinary-journal > .organic-background {
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+.culinary-journal .journal-header {
+    padding-top: clamp(100px, 12vw, 200px);
+}
+
+@media (max-width: 767px) {
+    .nutrition-app-intro,
+    .nutrition-ai,
+    .culinary-journal .journal-header {
+        padding-top: 96px;
+    }
+}

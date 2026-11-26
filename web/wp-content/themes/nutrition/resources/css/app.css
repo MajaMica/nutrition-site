@@ -10,6 +10,8 @@
 @import "./typography.css";
 @import "./header.css";
 @import "./home.css";
+@import "./components/organic-background.css";
+@import "./components/section-transition.css";
 
 @source "../../app/**/*.php";
 @source "../**/*.blade.php";
