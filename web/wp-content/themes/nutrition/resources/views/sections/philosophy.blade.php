@@ -4,22 +4,25 @@
             'number' => '01',
             'label' => 'The craft',
             'title' => 'Crafted with purpose.',
-            'description' => 'Thoughtful ingredients, refined techniques and attention to every detail. Exceptional food begins long before it reaches the plate.',
-            'image' => 'food001.webp',
+            'description' => 'Exceptional food begins with thoughtfully selected ingredients, respect for nature and attention to every detail. Quality is not an addition. It is the foundation.',
+            'image' => 'mixfood.webp',
+            'alt' => 'A selection of fresh and diverse ingredients',
         ],
         [
             'number' => '02',
             'label' => 'The science',
-            'title' => 'Beyond flavour.',
-            'description' => 'Bringing culinary craftsmanship and personalised nutrition together to support an active, balanced lifestyle without compromising on taste.',
-            'image' => 'food003.webp',
+            'title' => 'Food as medicine.',
+            'description' => 'Beyond flavour, food plays a fundamental role in wellbeing, recovery and performance. Combining culinary expertise with nutritional science, every ingredient serves a greater purpose.',
+            'image' => 'medicine.webp',
+            'alt' => 'Golden infusion and natural ingredients',
         ],
         [
             'number' => '03',
             'label' => 'The individual',
             'title' => 'Built around you.',
-            'description' => 'Your lifestyle. Your training. Your ambitions. A personal approach to food that reflects the way you live and what you want to achieve.',
-            'image' => 'food005.webp',
+            'description' => 'Your lifestyle. Your training. Your ambitions. A deeply personal approach to nutrition, shaped around who you are, how you live and what you want to achieve.',
+            'image' => 'nemanja001.webp',
+            'alt' => 'Nemanja, private chef and nutrition specialist',
         ],
     ];
 @endphp
@@ -32,8 +35,8 @@
                 data-philosophy-image="{{ $loop->index }}"
             >
                 <img
-                    src="{{ Vite::asset('resources/images/food/' . $chapter['image']) }}"
-                    alt=""
+                    src="{{ Vite::asset('resources/images/philosophy/' . $chapter['image']) }}"
+                    alt="{{ $chapter['alt'] }}"
                     loading="lazy"
                     decoding="async"
                 >

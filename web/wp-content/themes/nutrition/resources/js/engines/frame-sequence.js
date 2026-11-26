@@ -16,6 +16,7 @@ export class FrameSequence {
         this.displayedFrame = null
         this.currentImage = null
         this.direction = 1
+        this.processing = false
 
         this.width = 0
         this.height = 0
@@ -27,7 +28,10 @@ export class FrameSequence {
     }
 
     async init() {
-        const response = await fetch(`${this.baseUrl}/manifest.json`)
+        const response = await fetch(
+            `${this.baseUrl}/manifest.json`,
+            { cache: 'no-cache' }
+        )
 
         if (!response.ok) {
             throw new Error('Unable to load frame manifest')
@@ -43,18 +47,27 @@ export class FrameSequence {
         return this.manifest
     }
 
-    getFrameUrl(index) {
-        const scene = this.manifest.scenes.find(
+    getScene(index) {
+        return this.manifest.scenes.find(
             (scene) =>
                 index >= scene.startFrame &&
                 index <= scene.endFrame
         )
+    }
+
+    getFrameUrl(index) {
+        const scene = this.getScene(index)
 
         if (!scene) {
             throw new Error(`Invalid frame: ${index}`)
         }
 
-        const filename = `frame_${String(index).padStart(6, '0')}.webp`
+        const fileIndex =
+            (scene.fileStart ?? scene.startFrame) +
+            index - scene.startFrame
+
+        const filename =
+            `frame_${String(fileIndex).padStart(6, '0')}.webp`
 
         return `${this.baseUrl}/${scene.directory}/${filename}`
     }
@@ -106,22 +119,32 @@ export class FrameSequence {
     }
 
     preload(index) {
-        for (let offset = 1; offset <= this.preloadRadius; offset++) {
+        for (
+            let offset = 1;
+            offset <= this.preloadRadius;
+            offset++
+        ) {
             const candidates = [
                 index + offset * this.direction,
                 index - offset * this.direction,
             ]
 
             for (const frame of candidates) {
-                if (this.pending.size >= this.maxConcurrent) {
+                if (this.pending.size >= this.maxConcurrent - 1) {
                     return
                 }
 
-                if (frame < 0 || frame >= this.manifest.totalFrames) {
+                if (
+                    frame < 0 ||
+                    frame >= this.manifest.totalFrames
+                ) {
                     continue
                 }
 
-                if (this.cache.has(frame) || this.pending.has(frame)) {
+                if (
+                    this.cache.has(frame) ||
+                    this.pending.has(frame)
+                ) {
                     continue
                 }
 
@@ -135,14 +158,17 @@ export class FrameSequence {
     }
 
     resize() {
-        const rect = this.canvas.getBoundingClientRect()
-
-        this.width = rect.width
-        this.height = rect.height
+        this.width = this.canvas.clientWidth
+        this.height = this.canvas.clientHeight
         this.dpr = Math.min(window.devicePixelRatio || 1, 2)
 
-        this.canvas.width = Math.round(this.width * this.dpr)
-        this.canvas.height = Math.round(this.height * this.dpr)
+        this.canvas.width = Math.round(
+            this.width * this.dpr
+        )
+
+        this.canvas.height = Math.round(
+            this.height * this.dpr
+        )
 
         this.context.setTransform(
             this.dpr, 0, 0, this.dpr, 0, 0
@@ -169,13 +195,36 @@ export class FrameSequence {
         const x = (this.width - width) / 2
         const y = (this.height - height) / 2
 
-        this.context.drawImage(image, x, y, width, height)
+        this.context.drawImage(
+            image, x, y, width, height
+        )
+    }
+
+    applyGrade(index) {
+        const scene = this.getScene(index)
+
+        if (!scene) return
+
+        const brightness = scene.brightness ?? 1
+        const contrast = scene.contrast ?? 1
+        const saturation = scene.saturation ?? 1
+
+        this.canvas.style.filter =
+            `brightness(${brightness}) ` +
+            `contrast(${contrast}) ` +
+            `saturate(${saturation})`
+    }
+
+    display(index, image) {
+        this.currentImage = image
+        this.displayedFrame = index
+
+        this.applyGrade(index)
+        this.draw(image)
     }
 
     async render(index) {
-        if (!this.manifest) {
-            return
-        }
+        if (!this.manifest) return
 
         index = Math.max(
             0,
@@ -186,29 +235,49 @@ export class FrameSequence {
         )
 
         if (index !== this.currentFrame) {
-            this.direction = index > this.currentFrame ? 1 : -1
+            this.direction =
+                index > this.currentFrame ? 1 : -1
         }
 
         this.currentFrame = index
 
-        if (this.displayedFrame === index) {
+        if (this.cache.has(index)) {
+            const image = this.cache.get(index)
+
+            this.cache.delete(index)
+            this.cache.set(index, image)
+
+            if (this.displayedFrame !== index) {
+                this.display(index, image)
+            }
+
+            this.preload(index)
             return
         }
 
+        if (this.processing) return
+
+        this.processing = true
+
         try {
-            const image = await this.loadFrame(index)
+            while (
+                this.displayedFrame !== this.currentFrame
+            ) {
+                const target = this.currentFrame
+                const image = await this.loadFrame(target)
 
-            if (index !== this.currentFrame) {
-                return
+                if (
+                    target === this.currentFrame ||
+                    !this.cache.has(this.currentFrame)
+                ) {
+                    this.display(target, image)
+                }
             }
-
-            this.currentImage = image
-            this.displayedFrame = index
-
-            this.draw(image)
-            this.preload(index)
         } catch (error) {
             console.warn(error.message)
+        } finally {
+            this.processing = false
+            this.preload(this.currentFrame)
         }
     }
 }

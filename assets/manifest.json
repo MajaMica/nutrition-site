@@ -1,44 +1,73 @@
 {
-  "fps": 12,
-  "width": 1280,
-  "format": "webp",
-  "scenes": [
-    {
-      "name": "scene-001",
-      "source": "001.mp4",
-      "directory": "sequences/scene-001",
-      "startFrame": 0,
-      "endFrame": 644,
-      "frameCount": 645,
-      "sizeMB": 25.81
-    },
-    {
-      "name": "scene-002",
-      "source": "002.mp4",
-      "directory": "sequences/scene-002",
-      "startFrame": 645,
-      "endFrame": 739,
-      "frameCount": 95,
-      "sizeMB": 2.61
-    },
-    {
-      "name": "scene-003",
-      "source": "003.mp4",
-      "directory": "sequences/scene-003",
-      "startFrame": 740,
-      "endFrame": 802,
-      "frameCount": 63,
-      "sizeMB": 10.01
-    },
-    {
-      "name": "scene-004",
-      "source": "004.mp4",
-      "directory": "sequences/scene-004",
-      "startFrame": 803,
-      "endFrame": 908,
-      "frameCount": 106,
-      "sizeMB": 4.72
-    }
-  ],
-  "totalFrames": 909
+    "fps": 12,
+    "width": 1280,
+    "format": "webp",
+    "totalFrames": 893,
+    "scenes": [
+        {
+            "name": "dry-ice",
+            "directory": "sequences/scene-001",
+            "startFrame": 0,
+            "endFrame": 644,
+            "fileStart": 0,
+            "frameCount": 645,
+            "scrollWeight": 0.20,
+            "brightness": 0.90,
+            "contrast": 1.05,
+            "saturation": 0.90,
+            "title": "Precision."
+        },
+        {
+            "name": "cutting",
+            "directory": "sequences/scene-cut",
+            "startFrame": 645,
+            "endFrame": 674,
+            "fileStart": 0,
+            "frameCount": 30,
+            "scrollWeight": 0.15,
+            "brightness": 0.85,
+            "contrast": 1.08,
+            "saturation": 0.95,
+            "title": "Craft."
+        },
+        {
+            "name": "fire",
+            "directory": "sequences/scene-002",
+            "startFrame": 675,
+            "endFrame": 769,
+            "fileStart": 645,
+            "frameCount": 95,
+            "scrollWeight": 0.35,
+            "brightness": 0.70,
+            "contrast": 1.15,
+            "saturation": 0.95,
+            "title": "Intention."
+        },
+        {
+            "name": "plating",
+            "directory": "sequences/scene-003",
+            "startFrame": 770,
+            "endFrame": 832,
+            "fileStart": 740,
+            "frameCount": 63,
+            "scrollWeight": 0.10,
+            "brightness": 0.90,
+            "contrast": 1.05,
+            "saturation": 0.90,
+            "title": "Balance."
+        },
+        {
+            "name": "final",
+            "directory": "sequences/scene-end",
+            "startFrame": 833,
+            "endFrame": 892,
+            "fileStart": 0,
+            "frameCount": 60,
+            "scrollWeight": 0.20,
+            "brightness": 0.90,
+            "contrast": 1.05,
+            "saturation": 0.95,
+            "title": "Performance."
+        }
+    ]
 }

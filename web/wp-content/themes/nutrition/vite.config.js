@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin'
 
+
 if (!process.env.APP_URL) {
   process.env.APP_URL = 'https://nutrition-site.ddev.site'
 }
@@ -36,9 +37,10 @@ export default defineConfig({
       ],
       refresh: true,
       assets: [
-        'resources/images/**',
-        'resources/fonts/**',
-      ],
+  'resources/images/**',
+  'resources/fonts/**',
+  'resources/videos/**',
+],
     }),
 
     wordpressPlugin(),

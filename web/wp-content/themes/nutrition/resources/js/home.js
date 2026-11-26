@@ -4,9 +4,7 @@ import { FrameSequence } from './engines/frame-sequence'
 export async function initHome() {
     const hero = document.querySelector('[data-hero]')
 
-    if (!hero) {
-        return
-    }
+    if (!hero) return
 
     const stage = hero.querySelector('[data-hero-stage]')
     const canvas = hero.querySelector('[data-hero-canvas]')
@@ -28,67 +26,130 @@ export async function initHome() {
     )
 
     const manifest = await sequence.init()
+    const scenes = manifest.scenes
+
+    title.textContent = scenes[0].title
 
     if (reducedMotion) {
         indicator.hidden = true
         return
     }
 
-    const titles = [
-        'Precision.',
-        'Intention.',
-        'Balance.',
-        'Performance.',
-    ]
+    const totalWeight = scenes.reduce(
+        (sum, scene) => sum + (scene.scrollWeight ?? 1),
+        0
+    )
 
-    const scenes = manifest.scenes
+    let cursor = 0
+
+    const timeline = scenes.map((scene) => {
+        const start = cursor
+        const weight =
+            (scene.scrollWeight ?? 1) / totalWeight
+
+        cursor += weight
+
+        return {
+            ...scene,
+            scrollStart: start,
+            scrollEnd: cursor,
+            scrollDuration: weight
+        }
+    })
+
     const playhead = { progress: 0 }
 
-    let activeScene = 0
+    let activeScene = -1
+
+    function mapProgress(progress, curve) {
+        if (!curve || curve.length < 2) {
+            return progress
+        }
+
+        for (let i = 1; i < curve.length; i++) {
+            const [x1, y1] = curve[i - 1]
+            const [x2, y2] = curve[i]
+
+            if (progress <= x2) {
+                const ratio =
+                    (progress - x1) / (x2 - x1)
+
+                return gsap.utils.interpolate(
+                    y1,
+                    y2,
+                    ratio
+                )
+            }
+        }
+
+        return curve[curve.length - 1][1]
+    }
 
     function updateSequence() {
-        const position = playhead.progress * scenes.length
-
-        const sceneIndex = Math.min(
-            Math.floor(position),
-            scenes.length - 1
+        const progress = gsap.utils.clamp(
+            0, 1, playhead.progress
         )
 
-        const scene = scenes[sceneIndex]
+        let sceneIndex = timeline.findIndex(
+            (scene) => progress < scene.scrollEnd
+        )
 
-        const localProgress = Math.min(
-            position - sceneIndex,
-            1
+        if (sceneIndex === -1) {
+            sceneIndex = timeline.length - 1
+        }
+
+        const scene = timeline[sceneIndex]
+
+        const localProgress = gsap.utils.clamp(
+            0,
+            1,
+            (progress - scene.scrollStart) /
+                scene.scrollDuration
+        )
+
+        const frameProgress = gsap.utils.clamp(
+            0,
+            1,
+            mapProgress(
+                localProgress,
+                scene.speedCurve
+            )
         )
 
         const frame = scene.startFrame + Math.round(
-            localProgress * (scene.frameCount - 1)
+            frameProgress * (scene.frameCount - 1)
         )
 
         sequence.render(frame)
 
         if (sceneIndex !== activeScene) {
+            const initial = activeScene === -1
+
             activeScene = sceneIndex
 
             gsap.killTweensOf(title)
 
-            title.textContent = titles[sceneIndex]
+            title.textContent = scene.title
 
-            gsap.fromTo(
-                title,
-                {
-                    opacity: 0,
-                    y: 24,
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out',
-                }
-            )
+            if (!initial) {
+                gsap.fromTo(
+                    title,
+                    {
+                        opacity: 0,
+                        y: 24
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out'
+                    }
+                )
+            }
         }
     }
+
+    updateSequence()
 
     gsap.to(playhead, {
         progress: 1,
@@ -106,10 +167,10 @@ export async function initHome() {
                     opacity: Math.max(
                         0,
                         1 - self.progress * 12
-                    ),
+                    )
                 })
-            },
-        },
+            }
+        }
     })
 
     ScrollTrigger.refresh()
@@ -325,85 +386,91 @@ export function initServices() {
     if (!section) return
 
     const stage = section.querySelector('[data-services-stage]')
-    const track = section.querySelector('[data-services-track]')
-    const panels = gsap.utils.toArray(
-        section.querySelectorAll('[data-services-panel]')
+    const video = section.querySelector('[data-services-video]')
+    const chapters = gsap.utils.toArray(
+        section.querySelectorAll('[data-services-chapter]')
     )
 
-    const counter = section.querySelector('[data-services-counter]')
-    const progress = section.querySelector('[data-services-progress]')
-
-    if (panels.length < 2) return
+    if (!stage || !video || !chapters.length) return
 
     const mm = gsap.matchMedia()
 
-    mm.add(
-        '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
-        () => {
-            const horizontal = gsap.to(track, {
-                x: () => -(track.scrollWidth - stage.clientWidth),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top top',
-                    end: () => `+=${track.scrollWidth - stage.clientWidth}`,
-                    pin: stage,
-                    scrub: 1,
-                    invalidateOnRefresh: true,
-                    onUpdate: (self) => {
-                        const index = Math.round(
-                            self.progress * (panels.length - 1)
-                        )
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+        video.pause()
 
-                        counter.textContent = String(
-                            index + 1
-                        ).padStart(2, '0')
+        gsap.set(chapters, {
+            autoAlpha: 0,
+            y: 30
+        })
 
-                        gsap.set(progress, {
-                            scaleX: self.progress
-                        })
-                    }
-                }
-            })
+        gsap.set(chapters[0], {
+            autoAlpha: 1,
+            y: 0
+        })
 
-            panels.forEach((panel, index) => {
-                const image = panel.querySelector('.services-image img')
-                const content = panel.querySelector('.services-content')
-
-                gsap.fromTo(image, {
-                    scale: 1.12
-                }, {
-                    scale: 1,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: horizontal,
-                        start: 'left right',
-                        end: 'right left',
-                        scrub: true
-                    }
-                })
-
-                if (index === 0) return
-
-                gsap.fromTo(content, {
-                    opacity: 0,
-                    x: 80
-                }, {
-                    opacity: 1,
-                    x: 0,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: horizontal,
-                        start: 'left 90%',
-                        end: 'left 20%',
-                        scrub: true
-                    }
-                })
-            })
+        const playhead = {
+            progress: 0
         }
-    )
+
+        const renderVideo = () => {
+            if (!Number.isFinite(video.duration)) return
+
+            const time = playhead.progress *
+                Math.max(0, video.duration - 0.05)
+
+            if (Math.abs(video.currentTime - time) > 0.025) {
+                video.currentTime = time
+            }
+        }
+
+        video.addEventListener('loadedmetadata', renderVideo)
+
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: '+=350%',
+                pin: stage,
+                scrub: 1.5,
+                invalidateOnRefresh: true
+            }
+        })
+
+        timeline.to(playhead, {
+            progress: 1,
+            duration: 3,
+            ease: 'none',
+            onUpdate: renderVideo
+        }, 0)
+
+        chapters.forEach((chapter, index) => {
+            if (index > 0) {
+                timeline.to(chapter, {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                }, index + 0.05)
+            }
+
+            if (index < chapters.length - 1) {
+                timeline.to(chapter, {
+                    autoAlpha: 0,
+                    y: -30,
+                    duration: 0.3,
+                    ease: 'power2.in'
+                }, index + 0.7)
+            }
+        })
+
+        return () => {
+            video.pause()
+            video.removeEventListener(
+                'loadedmetadata',
+                renderVideo
+            )
+        }
+    })
 
     ScrollTrigger.refresh()
 }

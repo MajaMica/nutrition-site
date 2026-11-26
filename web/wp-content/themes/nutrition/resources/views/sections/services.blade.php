@@ -1,86 +1,63 @@
 @php
-    $services = [
+    $chapters = [
         [
-            'number' => '01',
-            'label' => 'The experience',
-            'title' => 'Private Chef.',
-            'description' => 'Exceptional dining, in the comfort of your own space. A personal culinary experience shaped around your tastes and lifestyle.',
-            'image' => 'food002.webp',
-            'link' => 'Discover the experience',
-            'url' => '/services/',
+            'label' => 'The craft',
+            'title' => 'Crafted with intention.',
+            'description' => 'Every ingredient. Every detail. Every decision.',
         ],
         [
-            'number' => '02',
             'label' => 'The performance',
             'title' => 'Fuel your potential.',
-            'description' => 'Purposeful nutrition for athletes and active lifestyles. Where exceptional flavour meets the demands of training and everyday performance.',
-            'image' => 'food004.webp',
-            'link' => 'Explore performance nutrition',
-            'url' => '/services/',
+            'description' => 'Where culinary expertise meets purposeful nutrition.',
         ],
         [
-            'number' => '03',
-            'label' => 'The individual',
+            'label' => 'The experience',
             'title' => 'Made for you.',
-            'description' => 'Personalised meal planning that fits your life, not the other way around. Your preferences, your routine, your goals.',
-            'image' => 'food005.webp',
-            'link' => 'Explore personalised nutrition',
-            'url' => '/services/',
+            'description' => 'Private dining. Personalised nutrition. Your lifestyle.',
         ],
     ];
 @endphp
 
-<section class="services" data-services>
-    <div class="services-stage" data-services-stage>
-        <div class="services-track" data-services-track>
-            @foreach ($services as $service)
-                <article class="services-panel" data-services-panel>
-                    <div class="services-image">
-                        <img
-                            src="{{ Vite::asset('resources/images/food/' . $service['image']) }}"
-                            alt=""
-                            loading="lazy"
-                            decoding="async"
-                        >
-                    </div>
+<section class="services-film" data-services>
+    <div class="services-film-stage" data-services-stage>
 
-                    <div class="services-overlay"></div>
+        <video
+            class="services-film-video"
+            data-services-video
+            poster="{{ Vite::asset('resources/images/services/private-chef.webp') }}"
+            muted
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+        >
+            <source
+                src="{{ Vite::asset('resources/videos/services/private-chef.mp4') }}"
+                type="video/mp4"
+            >
+        </video>
 
-                    <div class="services-content">
-                        <div class="services-label type-label">
-                            {{ $service['number'] }} — {{ $service['label'] }}
-                        </div>
+        <div class="services-film-overlay"></div>
 
-                        <h2 class="services-title">
-                            {{ $service['title'] }}
-                        </h2>
+        <div class="services-film-story">
+            @foreach ($chapters as $chapter)
+                <div
+                    class="services-film-chapter"
+                    data-services-chapter
+                >
+                    <span class="services-film-label type-label">
+                        {{ $chapter['label'] }}
+                    </span>
 
-                        <p class="services-description type-body">
-                            {{ $service['description'] }}
-                        </p>
+                    <h2 class="services-film-title type-hero">
+                        {{ $chapter['title'] }}
+                    </h2>
 
-                        <a
-                            href="{{ home_url($service['url']) }}"
-                            class="services-link"
-                        >
-                            {{ $service['link'] }}
-                            <span aria-hidden="true">↗</span>
-                        </a>
-                    </div>
-                </article>
+                    <p class="services-film-description type-body">
+                        {{ $chapter['description'] }}
+                    </p>
+                </div>
             @endforeach
         </div>
 
-        <div class="services-navigation" aria-hidden="true">
-            <span data-services-counter>01</span>
-
-            <div class="services-progress">
-                <span data-services-progress></span>
-            </div>
-
-            <span>
-                {{ str_pad(count($services), 2, '0', STR_PAD_LEFT) }}
-            </span>
-        </div>
     </div>
 </section>
