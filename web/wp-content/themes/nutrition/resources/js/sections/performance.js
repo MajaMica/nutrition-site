@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger } from './core/animation-engine'
+import { gsap, ScrollTrigger } from '../core/animation-engine'
 
 export function initPerformance() {
     const section = document.querySelector('[data-performance]')
