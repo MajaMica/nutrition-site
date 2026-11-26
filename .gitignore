@@ -40,3 +40,6 @@ web/wp-content/themes/nutrition/public/hot/
 # System
 .DS_Store
 Thumbs.db
+# Default themes
+web/wp-content/themes/*
+!web/wp-content/themes/nutrition/
