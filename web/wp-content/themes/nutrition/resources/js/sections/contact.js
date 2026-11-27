@@ -21,7 +21,7 @@ export function initContact() {
     const mm = gsap.matchMedia()
 
     mm.add(
-        '(min-width: 768px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)',
+        '(min-height: 650px) and (prefers-reduced-motion: no-preference)',
         () => {
             section.classList.add('is-cinematic')
 

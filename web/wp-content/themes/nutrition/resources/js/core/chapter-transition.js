@@ -146,7 +146,11 @@ export function playChapterTransition({
                 ScrollTrigger.update()
 
                 ScrollTrigger.getAll().forEach(trigger => {
-                    trigger.getTween()?.progress(1)
+                    const tween = trigger.getTween()
+
+                    if (typeof tween?.progress === 'function') {
+                        tween.progress(1)
+                    }
                 })
             } catch (error) {
                 console.error(

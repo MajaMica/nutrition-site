@@ -87,7 +87,7 @@ export function initFooter() {
     const mm = gsap.matchMedia()
 
     mm.add(
-        '(min-width: 768px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)',
+        '(min-height: 650px) and (prefers-reduced-motion: no-preference)',
         () => {
             footer.classList.add('is-cinematic')
 

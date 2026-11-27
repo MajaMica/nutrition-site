@@ -7,6 +7,7 @@ export class FrameSequence {
         this.cacheLimit = options.cacheLimit ?? 48
         this.preloadRadius = options.preloadRadius ?? 8
         this.maxConcurrent = options.maxConcurrent ?? 6
+        this.maxDpr = options.maxDpr ?? 2
 
         this.manifest = null
         this.cache = new Map()
@@ -158,9 +159,23 @@ export class FrameSequence {
     }
 
     resize() {
-        this.width = this.canvas.clientWidth
-        this.height = this.canvas.clientHeight
-        this.dpr = Math.min(window.devicePixelRatio || 1, 2)
+        const width = this.canvas.clientWidth
+        const height = this.canvas.clientHeight
+        const dpr = Math.min(window.devicePixelRatio || 1, this.maxDpr)
+
+        if (!width || !height) return
+
+        if (
+            width === this.width &&
+            height === this.height &&
+            dpr === this.dpr
+        ) {
+            return
+        }
+
+        this.width = width
+        this.height = height
+        this.dpr = dpr
 
         this.canvas.width = Math.round(
             this.width * this.dpr

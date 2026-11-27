@@ -303,3 +303,46 @@
         gap: 36px;
     }
 }
+@media (max-width: 767px) {
+    .nutrition-ai.is-cinematic .nutrition-ai-scene {
+        padding:
+            calc(var(--header-height) + 16px)
+            var(--site-gutter)
+            64px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-conversation {
+        width: 100%;
+        gap: 24px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-message {
+        padding: 16px 20px;
+        font-size: 14px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-response p {
+        font-size: clamp(26px, 7vw, 36px);
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-symbol {
+        font-size: 26px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-lines {
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-ending h3 {
+        font-size: clamp(48px, 12vw, 80px);
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-ending {
+        gap: 24px;
+    }
+
+    .nutrition-ai.is-cinematic .nutrition-ai-navigation {
+        bottom: 24px;
+    }
+}

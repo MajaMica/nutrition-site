@@ -1,7 +1,10 @@
 import Lenis from 'lenis'
+import { getMotionProfile } from './motion-profile'
 
 export function initSmoothScroll() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const profile = getMotionProfile()
+
+    if (!profile.scroll.smooth) {
         return null
     }
 

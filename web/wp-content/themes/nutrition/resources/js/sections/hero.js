@@ -1,5 +1,7 @@
 import { gsap, ScrollTrigger } from '../core/animation-engine'
 import { FrameSequence } from '../engines/frame-sequence'
+import { getMotionProfile } from '../core/motion-profile'
+import { MobileFrameSequence } from '../engines/mobile-frame-sequence'
 
 export async function initHome() {
     const hero = document.querySelector('[data-hero]')
@@ -11,30 +13,53 @@ export async function initHome() {
     const title = hero.querySelector('[data-hero-title]')
     const indicator = hero.querySelector('.hero-scroll')
 
+    const mobile = window.matchMedia(
+        '(max-width: 767px)'
+    ).matches
+
     const reducedMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
     ).matches
+    const profile = getMotionProfile()
+
+if (profile.hero.mobileSequence) {
+    const mobileSequence = new MobileFrameSequence(
+        hero,
+        profile
+    )
+
+    try {
+        await mobileSequence.init()
+
+        ScrollTrigger.refresh()
+
+        return
+    } catch (error) {
+        mobileSequence.destroy()
+
+        console.warn(
+            'Mobile hero initialization failed:',
+            error
+        )
+    }
+}
 
     const sequence = new FrameSequence(
         canvas,
         hero.dataset.sequenceUrl,
         {
-            cacheLimit: 48,
-            preloadRadius: reducedMotion ? 0 : 8,
-            maxConcurrent: 6,
+            cacheLimit: mobile ? 20 : 48,
+            preloadRadius: reducedMotion ? 0 : mobile ? 4 : 8,
+            maxConcurrent: mobile ? 3 : 6,
+            maxDpr: mobile ? 1.5 : 2,
         }
     )
 
     const manifest = await sequence.init()
-const scenes = manifest.scenes
-const titles = JSON.parse(hero.dataset.heroTitles || '[]')
+    const scenes = manifest.scenes
+    const titles = JSON.parse(hero.dataset.heroTitles || '[]')
 
-title.textContent = titles[0] ?? scenes[0].title
-
-    if (reducedMotion) {
-        indicator.hidden = true
-        return
-    }
+    title.textContent = titles[0] ?? scenes[0].title
 
     const totalWeight = scenes.reduce(
         (sum, scene) => sum + (scene.scrollWeight ?? 1),
@@ -108,14 +133,16 @@ title.textContent = titles[0] ?? scenes[0].title
                 scene.scrollDuration
         )
 
-        const frameProgress = gsap.utils.clamp(
-            0,
-            1,
-            mapProgress(
-                localProgress,
-                scene.speedCurve
+        const frameProgress = reducedMotion
+            ? 0.5
+            : gsap.utils.clamp(
+                0,
+                1,
+                mapProgress(
+                    localProgress,
+                    scene.speedCurve
+                )
             )
-        )
 
         const frame = scene.startFrame + Math.round(
             frameProgress * (scene.frameCount - 1)
@@ -130,19 +157,20 @@ title.textContent = titles[0] ?? scenes[0].title
 
             gsap.killTweensOf(title)
 
-            title.textContent = titles[sceneIndex] ?? scene.title;
+            title.textContent =
+                titles[sceneIndex] ?? scene.title
 
-            if (!initial) {
+            if (!initial && !reducedMotion) {
                 gsap.fromTo(
                     title,
                     {
                         opacity: 0,
-                        y: 24
+                        y: mobile ? 12 : 24
                     },
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.8,
+                        duration: mobile ? 0.5 : 0.8,
                         ease: 'power3.out'
                     }
                 )
@@ -159,9 +187,9 @@ title.textContent = titles[0] ?? scenes[0].title
         scrollTrigger: {
             trigger: hero,
             start: 'top top',
-            end: '+=500%',
+            end: mobile ? '+=350%' : '+=500%',
             pin: stage,
-            scrub: 0.6,
+            scrub: reducedMotion ? true : mobile ? 0.45 : 0.6,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
                 gsap.set(indicator, {

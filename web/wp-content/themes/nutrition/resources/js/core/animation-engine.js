@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { initSmoothScroll } from './smooth-scroll'
+import { getMotionProfile } from './motion-profile'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -10,6 +11,14 @@ let initialized = false
 export function initAnimationEngine() {
     if (initialized) {
         return { gsap, ScrollTrigger, lenis }
+    }
+
+    const profile = getMotionProfile()
+
+    if (profile.touch) {
+        ScrollTrigger.config({
+            ignoreMobileResize: true,
+        })
     }
 
     lenis = initSmoothScroll()
