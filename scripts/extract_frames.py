@@ -40,7 +40,7 @@ for video in videos:
 
     print(f"\nProcessing: {video.name}")
 
-    # Uklanjamo stare generisane frejmove ove scene
+    # Remove old frames
     for old_frame in scene_dir.glob("frame_*.webp"):
         old_frame.unlink()
 

@@ -14,11 +14,21 @@ the readme will list any important changes.
 @version 3.4.0
 --}}
 
-@extends('layouts.app')
+@extends('layouts.shop')
 
 @section('content')
+
+  @if (is_shop())
+    @include('woocommerce.sections.hero')
+    <div class="ed-cinematic-chapter" data-ed-cinematic-chapter>
+        @include('woocommerce.sections.manifesto')
+        @include('woocommerce.sections.book-experience')
+    </div>
+  @endif
+
+  <div id="collection" class="editions-container">
+
   @php
-    do_action('get_header', 'shop');
     do_action('woocommerce_before_main_content');
   @endphp
 
@@ -61,6 +71,7 @@ the readme will list any important changes.
   @php
     do_action('woocommerce_after_main_content');
     do_action('get_sidebar', 'shop');
-    do_action('get_footer', 'shop');
   @endphp
+  </div>
+
 @endsection

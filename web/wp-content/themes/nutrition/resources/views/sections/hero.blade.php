@@ -1,3 +1,13 @@
+@for ($frame = 0; $frame < 8; $frame++)
+    <link
+        rel="preload"
+        as="image"
+        media="(max-width: 767px)"
+        href="{{ get_theme_file_uri('public/storytelling/mobile/sequences/scene-001/frame_' . str_pad($frame, 6, '0', STR_PAD_LEFT) . '.webp') }}"
+        fetchpriority="{{ $frame === 0 ? 'high' : 'auto' }}"
+    >
+@endfor
+
 <section id="home"
     class="cinematic-section"
     data-hero

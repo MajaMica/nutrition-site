@@ -1,0 +1,57 @@
+.ed-cinematic-chapter {
+    position: relative;
+    isolation: isolate;
+    background: #2B1019;
+}
+
+.ed-cinematic-chapter.is-cinematic {
+    height: 100svh;
+    overflow: clip;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-manifesto {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    transform-origin: center;
+    background: transparent;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-manifesto-stage {
+    height: 100%;
+    min-height: 0;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-experience {
+    height: 100%;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-experience-stage {
+    height: 100%;
+    min-height: 0;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-manifesto-orbit,
+.ed-cinematic-chapter.is-cinematic .ed-manifesto-watermark {
+    display: none;
+}
+
+.ed-cinematic-chapter.is-cinematic .ed-manifesto-copy h2 span:last-child {
+    letter-spacing: -.025em;
+    word-spacing: .06em;
+    margin-top: 36px;
+}
+
+@media (max-width: 767px) {
+    .ed-cinematic-chapter.is-cinematic .ed-manifesto-stage {
+        padding-block: 110px 80px;
+    }
+
+    .ed-cinematic-chapter.is-cinematic .ed-experience-stage {
+        padding-block: 110px 80px;
+    }
+
+    .ed-cinematic-chapter.is-cinematic .ed-manifesto-copy h2 span:last-child {
+        margin-top: 24px;
+    }
+}

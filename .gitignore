@@ -22,7 +22,7 @@ web/wp-content/upgrade/
 
 # Build
 web/wp-content/themes/nutrition/public/build/
-web/wp-content/themes/nutrition/public/hot/
+web/wp-content/themes/nutrition/public/hot
 
 # Local
 .ddev/.dbimageBuild/
@@ -44,3 +44,5 @@ Thumbs.db
 web/wp-content/themes/*
 !web/wp-content/themes/nutrition/
 /web/wp-content/languages/
+
+/web/wp-content/jetpack-waf/

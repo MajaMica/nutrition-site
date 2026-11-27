@@ -1,0 +1,153 @@
+.ed-manifesto {
+    position: relative;
+    background: var(--ed-burgundy);
+    color: var(--ed-paper);
+    isolation: isolate;
+}
+
+.ed-manifesto-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh;
+    padding-block: 120px;
+    overflow: clip;
+    isolation: isolate;
+}
+
+.ed-manifesto-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(65vw, 780px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(216, 196, 186, .2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.ed-manifesto-orbit::after {
+    content: '';
+    position: absolute;
+    inset: 10%;
+    border: 1px solid rgba(216, 196, 186, .12);
+    border-radius: 50%;
+}
+
+.ed-manifesto-watermark {
+    position: absolute;
+    right: 0;
+    bottom: -20%;
+    font-family: var(--ed-serif);
+    font-size: 80vw;
+    line-height: .8;
+    opacity: .035;
+    pointer-events: none;
+    z-index: -2;
+}
+
+.ed-manifesto-label {
+    position: absolute;
+    top: 55px;
+    left: var(--ed-gutter);
+    display: flex;
+    gap: 20px;
+    color: var(--ed-rose);
+}
+
+.ed-manifesto-copy {
+    position: relative;
+    text-align: center;
+}
+
+.ed-manifesto-copy h2 {
+    font-size: clamp(72px, 11vw, 180px);
+    letter-spacing: -.04em;
+    line-height: .85;
+}
+
+.ed-manifesto-copy h2 span,
+.ed-manifesto-copy h2 em {
+    display: block;
+}
+
+.ed-manifesto-copy h2 em {
+    font-weight: 400;
+    font-size: 1.3em;
+}
+
+.ed-manifesto-copy h2 span:last-child {
+    margin-top: 28px;
+    font-size: .48em;
+    color: var(--ed-rose);
+}
+
+.ed-manifesto-copy p {
+    max-width: 440px;
+    margin: 42px auto 0;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.ed-manifesto-bottom {
+    position: absolute;
+    right: var(--ed-gutter);
+    bottom: 40px;
+    left: var(--ed-gutter);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(216, 196, 186, .3);
+    color: var(--ed-rose);
+}
+
+@media (max-width: 767px) {
+    .ed-manifesto-stage {
+        min-height: 85svh;
+        padding-block: 100px;
+    }
+
+    .ed-manifesto-copy h2 {
+        font-size: clamp(46px, 12vw, 80px);
+    }
+
+    .ed-manifesto-copy h2 span:last-child {
+        margin-top: 20px;
+        font-size: .65em;
+    }
+
+    .ed-manifesto-copy p {
+        max-width: 270px;
+        margin-top: 28px;
+        font-size: 13px;
+    }
+
+    .ed-manifesto-orbit {
+        width: 110vw;
+    }
+
+    .ed-manifesto-watermark {
+        font-size: 140vw;
+        bottom: -8%;
+    }
+
+    .ed-manifesto-label {
+        top: 35px;
+    }
+
+    .ed-manifesto-bottom {
+        bottom: 28px;
+        font-size: 9px;
+    }
+}
+.ed-manifesto {
+    background: radial-gradient(
+        ellipse at 50% 45%,
+        #641C30 0%,
+        #4A1525 48%,
+        #2B1019 100%
+    );
+}

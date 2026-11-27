@@ -1,0 +1,24 @@
+:root {
+    --ed-paper: #F5F0E9;
+    --ed-burgundy: #713747;
+    --ed-ink: #241F23;
+    --ed-rose: #D8C4BA;
+    --ed-champagne: #B8A18A;
+    --ed-forest: #26382B;
+
+    --ed-serif: 'Instrument Serif', Georgia, serif;
+    --ed-sans: 'Manrope Variable', sans-serif;
+
+    --ed-gutter: clamp(20px, 5vw, 96px);
+    --ed-header: 80px;
+    --ed-max-width: 1920px;
+
+    --ed-ease: cubic-bezier(.22, 1, .36, 1);
+    --ed-transition: 600ms;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --ed-header: 64px;
+    }
+}

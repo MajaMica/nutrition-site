@@ -14,11 +14,10 @@ the readme will list any important changes.
 @version     1.6.4
 --}}
 
-@extends('layouts.app')
+@extends('layouts.shop')
 
 @section('content')
   @php
-    do_action('get_header', 'shop');
     do_action('woocommerce_before_main_content');
   @endphp
 
@@ -32,6 +31,5 @@ the readme will list any important changes.
   @php
     do_action('woocommerce_after_main_content');
     do_action('get_sidebar', 'shop');
-    do_action('get_footer', 'shop');
   @endphp
 @endsection
