@@ -3,6 +3,7 @@ import {
     ScrollTrigger,
     initAnimationEngine
 } from './animation-engine'
+import { getMotionProfile } from './motion-profile'
 
 export function initFooter() {
     const footer = document.querySelector('[data-footer]')
@@ -87,9 +88,22 @@ export function initFooter() {
     const mm = gsap.matchMedia()
 
     mm.add(
-        '(min-height: 650px) and (prefers-reduced-motion: no-preference)',
-        () => {
+        {
+            mobile: '(max-width: 767px)',
+            desktop: '(min-width: 768px)',
+            tall: '(min-height: 650px)',
+            reduced: '(prefers-reduced-motion: reduce)'
+        },
+        context => {
+            const { mobile, tall, reduced } = context.conditions
+            const profile = getMotionProfile()
+
+            if (!tall || (mobile ? profile.reduced : reduced)) return
             footer.classList.add('is-cinematic')
+
+            if (mobile) {
+                footer.classList.add('is-mobile-cinematic')
+            }
 
             const distance = () => Math.max(
                 0,
@@ -103,9 +117,9 @@ export function initFooter() {
                 scrollTrigger: {
                     trigger: footer,
                     start: 'top top',
-                    end: () => `+=${distance()}`,
+                    end: () => `+=${distance() * (mobile ? 1.35 : 1)}`,
                     pin: stage,
-                    scrub: .9,
+                    scrub: mobile ? .55 : .9,
                     invalidateOnRefresh: true
                 }
             })
@@ -121,17 +135,36 @@ export function initFooter() {
             }, 0)
 
             timeline.fromTo(parallax, {
-                x: index => index === 0 ? -24 : 60
+                x: index => mobile
+                    ? (index === 0 ? 0 : 24)
+                    : (index === 0 ? -24 : 60)
             }, {
-                x: index => index === 0 ? 80 : 0,
+                x: index => mobile
+                    ? (index === 0 ? 20 : 0)
+                    : (index === 0 ? 80 : 0),
                 duration: 1
             }, 0)
 
             timeline.to(blobs, {
-                x: index => index % 2 === 0 ? 100 : -80,
+                x: index => index % 2 === 0
+                    ? (mobile ? 45 : 100)
+                    : (mobile ? -35 : -80),
                 y: index => index % 2 === 0 ? 30 : -30,
                 duration: 1
             }, 0)
+
+            if (mobile) {
+                const wordmark = footer.querySelector('.footer-wordmark')
+
+                timeline.fromTo(wordmark, {
+                    scale: .88,
+                    transformOrigin: 'left center'
+                }, {
+                    scale: 1,
+                    duration: .35,
+                    ease: 'power2.out'
+                }, .65)
+            }
 
             function handleFocus(event) {
                 const panel = event.target.closest('.footer-panel')
@@ -179,7 +212,7 @@ export function initFooter() {
             footer.addEventListener('focusin', handleFocus)
 
             return () => {
-                footer.classList.remove('is-cinematic')
+                footer.classList.remove('is-cinematic', 'is-mobile-cinematic')
 
                 footer.removeEventListener(
                     'focusin',

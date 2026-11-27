@@ -3,6 +3,7 @@ import {
     ScrollTrigger,
     initAnimationEngine
 } from '../core/animation-engine'
+import { getMotionProfile } from '../core/motion-profile'
 
 export function initContact() {
     const section = document.querySelector('[data-contact]')
@@ -21,19 +22,32 @@ export function initContact() {
     const mm = gsap.matchMedia()
 
     mm.add(
-        '(min-height: 650px) and (prefers-reduced-motion: no-preference)',
-        () => {
+        {
+            mobile: '(max-width: 767px)',
+            desktop: '(min-width: 768px)',
+            tall: '(min-height: 650px)',
+            reduced: '(prefers-reduced-motion: reduce)'
+        },
+        context => {
+            const { mobile, tall, reduced } = context.conditions
+            const profile = getMotionProfile()
+
+            if (!tall || (mobile ? profile.reduced : reduced)) return
             section.classList.add('is-cinematic')
 
-            const interval = 1.6
+            if (mobile) {
+                section.classList.add('is-mobile-cinematic')
+            }
+
+            const interval = mobile ? 1.25 : 1.6
             const duration = scenes.length * interval
 
             let active = -1
 
             gsap.set(scenes, {
                 autoAlpha: 0,
-                y: 60,
-                scale: .96
+                y: mobile ? 24 : 60,
+                scale: mobile ? .94 : .96
             })
 
             gsap.set(scenes[0], {
@@ -78,9 +92,9 @@ export function initContact() {
                 scrollTrigger: {
                     trigger: section,
                     start: 'top top',
-                    end: () => `+=${window.innerHeight * scenes.length * .48}`,
+                    end: () => `+=${stage.clientHeight * scenes.length * (mobile ? .32 : .48)}`,
                     pin: stage,
-                    scrub: .8,
+                    scrub: mobile ? .5 : .8,
                     invalidateOnRefresh: true
                 }
             })
@@ -93,10 +107,10 @@ export function initContact() {
                 timeline
                     .to(scenes[index - 1], {
                         autoAlpha: 0,
-                        y: -60,
-                        scale: 1.04,
+                        y: mobile ? -24 : -60,
+                        scale: mobile ? 1.06 : 1.04,
                         duration: .45
-                    }, time - .45)
+                    }, time - (mobile ? .22 : .45))
 
                     .to(scene, {
                         autoAlpha: 1,
@@ -104,16 +118,24 @@ export function initContact() {
                         scale: 1,
                         duration: .65,
                         ease: 'power2.out'
-                    }, time)
+                    }, time - (mobile ? .22 : 0))
             })
 
             timeline.to(rings, {
                 rotation: index => index % 2 === 0
                     ? 180 + index * 45
                     : -180 + index * 45,
-                scale: index => 1 + index * .045,
+                scale: index => 1 + index * (mobile ? .09 : .045),
                 duration
             }, 0)
+
+            if (mobile) {
+                timeline.to('.contact-orbits', {
+                    scale: 1.16,
+                    duration,
+                    ease: 'sine.inOut'
+                }, 0)
+            }
 
             timeline.to(progress, {
                 scaleX: 1,
@@ -177,7 +199,7 @@ export function initContact() {
             updateActive(0)
 
             return () => {
-                section.classList.remove('is-cinematic')
+                section.classList.remove('is-cinematic', 'is-mobile-cinematic')
 
                 scenes.forEach(scene => {
                     scene.inert = false

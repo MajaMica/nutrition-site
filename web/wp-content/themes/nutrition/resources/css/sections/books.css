@@ -300,3 +300,89 @@
         --book-depth: 18px;
     }
 }
+@media (max-width: 767px) {
+    .culinary-library.is-mobile-cinematic .library-stage {
+        height: 100svh;
+        min-height: 0;
+        padding: 0;
+        overflow: clip;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-intro {
+        position: absolute;
+        inset: var(--header-height) 0 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-inline: var(--site-gutter);
+    }
+
+    .culinary-library.is-mobile-cinematic .library-title {
+        font-size: clamp(52px, 13vw, 84px);
+    }
+
+    .culinary-library.is-mobile-cinematic .library-label {
+        margin-bottom: 20px;
+        font-size: 9px;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-book-area {
+        position: absolute;
+        inset: var(--header-height) 0 40px;
+        padding: 0;
+        perspective: 1100px;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-book {
+        width: min(64vw, 290px, 34svh);
+        --book-depth: 18px;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-book-shadow {
+        bottom: 20%;
+        width: 45%;
+        filter: blur(20px);
+    }
+
+    .culinary-library.is-mobile-cinematic .library-details {
+        position: absolute;
+        inset: auto var(--site-gutter) 64px;
+        margin: 0;
+        max-width: none;
+        text-align: center;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-heading {
+        font-size: clamp(34px, 9vw, 52px);
+        line-height: .98;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-details p {
+        margin-top: 16px;
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-status {
+        margin-top: 20px;
+        padding: 10px 18px;
+        font-size: 9px;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-navigation {
+        display: flex;
+        bottom: 24px;
+        gap: 16px;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-watermark {
+        font-size: 44vw;
+        opacity: .06;
+    }
+
+    .culinary-library.is-mobile-cinematic .library-ambient span {
+        width: 100vw;
+        filter: blur(65px);
+    }
+}

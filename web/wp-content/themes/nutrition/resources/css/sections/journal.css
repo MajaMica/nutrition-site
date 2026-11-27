@@ -301,3 +301,145 @@
         aspect-ratio: 4 / 3;
     }
 }
+
+
+@media (max-width: 767px) {
+    .culinary-journal::before {
+        height: 150px;
+        background: linear-gradient(
+            180deg,
+            #0d0d0d 0%,
+            #26382b 22%,
+            transparent 100%
+        );
+    }
+
+    .culinary-journal > .organic-background {
+        mask-image: linear-gradient(
+            180deg,
+            transparent,
+            #000 220px
+        );
+    }
+
+    .journal-header {
+        padding-top: 172px;
+        padding-bottom: 40px;
+    }
+
+    .journal-heading {
+        font-size: clamp(54px, 14vw, 84px);
+    }
+
+    .journal-eyebrow {
+        margin-bottom: 20px;
+    }
+
+    .journal-lead {
+        margin-top: 24px;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack {
+        --stack-offset: 7px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack-item {
+        position: sticky;
+        top: calc(
+            var(--stack-top) +
+            var(--card-index) * var(--stack-offset)
+        );
+        padding-bottom: 32px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack-item:last-child {
+        padding-bottom: 0;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-card {
+        height: min(
+            560px,
+            70svh,
+            calc(100svh - var(--stack-top) - 52px)
+        );
+        min-height: 0;
+        aspect-ratio: auto;
+        border-radius: 14px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-card-content {
+        padding: 24px 20px;
+    }
+
+    .journal-footer {
+        margin-top: 48px;
+        padding-top: 24px;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .culinary-journal.is-mobile-cinematic {
+        padding-bottom: 40px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack {
+        --stack-offset: 12px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack-item {
+        padding-bottom: 20px;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-stack-item:last-child {
+        padding-bottom: 0;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-card {
+        --journal-shade: 0;
+        border-radius: 18px;
+        box-shadow: 0 12px 32px rgba(20, 23, 19, .2);
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        background: #141713;
+        opacity: var(--journal-shade);
+        pointer-events: none;
+    }
+
+    .culinary-journal.is-mobile-cinematic .journal-footer {
+        margin-top: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+    .culinary-journal::before {
+        height: 110px;
+        background: linear-gradient(
+            180deg,
+            #0d0d0d,
+            #26382b 18%,
+            #84916b 48%,
+            transparent
+        );
+    }
+
+    .culinary-journal > .organic-background {
+        mask-image: linear-gradient(
+            180deg,
+            transparent,
+            #000 140px
+        );
+    }
+
+    .journal-header {
+        padding-top: 128px;
+        padding-bottom: 32px;
+    }
+}

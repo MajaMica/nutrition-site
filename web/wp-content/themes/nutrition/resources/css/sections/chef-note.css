@@ -206,68 +206,127 @@
 }
 
 @media (max-width: 767px) {
+    .chef-note {
+        background: #1d2b21;
+        margin: 0;
+    }
+
     .chef-note-stage {
         display: block;
-        min-height: auto;
+        min-height: 100svh;
+        overflow: clip;
+    }
+
+    .chef-note-ambient {
+        background: radial-gradient(
+            ellipse at 80% 85%,
+            rgba(132, 145, 107, .12),
+            transparent 65%
+        );
     }
 
     .chef-note-watermark {
-        top: 20px;
-        font-size: 23vw;
+        top: auto;
+        bottom: 4%;
+        font-size: 25vw;
+        opacity: .5;
     }
 
     .chef-note-media {
         position: relative;
-        top: auto;
-        right: auto;
-        bottom: auto;
+        inset: auto;
         width: 100%;
-        height: clamp(340px, 65svh, 560px);
-        margin-top: 48px;
+        height: clamp(340px, 72svh, 640px);
+        margin: 0;
+        overflow: hidden;
     }
 
     .chef-note-media img {
         object-position: 73% center;
+        transform-origin: 70% 40%;
     }
 
     .chef-note-media::after {
         background:
             linear-gradient(
-                0deg,
-                #1D2B21,
-                transparent 45%
+                180deg,
+                #141713 0%,
+                rgba(20, 23, 19, .15) 12%,
+                transparent 25%
             ),
             linear-gradient(
-                180deg,
-                #1D2B21,
-                transparent 20%
+                0deg,
+                #1d2b21 0%,
+                rgba(29, 43, 33, .9) 12%,
+                rgba(29, 43, 33, .3) 38%,
+                transparent 65%
             );
     }
 
     .chef-note-inner {
-        margin-top: -72px;
-        padding-block: 0 80px;
+        margin-top: -110px;
+        padding: 0 var(--site-gutter) 64px;
     }
 
     .chef-note-copy {
         width: 100%;
+        max-width: 100%;
+    }
+
+    .chef-note-eyebrow {
+        gap: 12px;
+        font-size: 10px;
+        letter-spacing: .18em;
+    }
+
+    .chef-note-eyebrow::before {
+        width: 24px;
+        flex-shrink: 0;
     }
 
     .chef-note-mark {
-        height: 65px;
-        margin-top: 20px;
-        font-size: 140px;
+        height: 48px;
+        margin-top: 16px;
+        font-size: 110px;
+        opacity: .65;
+    }
+
+    .chef-note-quote {
+        gap: 20px;
     }
 
     .chef-note-quote [data-note-first] {
-        font-size: clamp(44px, 10vw, 68px);
+        font-size: clamp(40px, 10.5vw, 64px);
+        line-height: 1.02;
     }
 
     .chef-note-quote [data-note-second] {
-        font-size: clamp(28px, 6vw, 38px);
+        font-size: clamp(26px, 6.5vw, 36px);
+        line-height: 1.2;
     }
 
     .chef-note-author {
-        margin-top: 32px;
+        gap: 16px;
+        margin-top: 28px;
+    }
+
+    .chef-note-author > span {
+        width: 32px;
+    }
+
+    .chef-note-author cite {
+        font-size: 28px;
+    }
+
+    .chef-note-stage::after {
+        content: '';
+        position: absolute;
+        inset: auto 0 0;
+        height: 48px;
+        background: linear-gradient(
+            transparent,
+            #141713
+        );
+        pointer-events: none;
     }
 }

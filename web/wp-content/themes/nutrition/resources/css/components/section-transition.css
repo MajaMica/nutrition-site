@@ -40,8 +40,64 @@
     padding-top: clamp(100px, 12vw, 200px);
 }
 
+.cinematic-seam {
+    display: none;
+}
+
 @media (max-width: 767px) {
+    .has-cinematic-seam {
+        position: relative;
+    }
+
+    .cinematic-seam {
+        position: absolute;
+        display: block;
+        inset: 0 0 auto;
+        height: var(--seam-depth, 100px);
+        z-index: 8;
+        pointer-events: none;
+        transform-origin: center top;
+        background: linear-gradient(
+            180deg,
+            var(--seam-color),
+            transparent
+        );
+    }
+
+    .cinematic-seam--reveal {
+        background: linear-gradient(
+            180deg,
+            var(--seam-color) 0%,
+            var(--seam-color) 12%,
+            transparent 100%
+        );
+    }
+
+    .cinematic-seam--atmosphere {
+        background: linear-gradient(
+            180deg,
+            var(--seam-color),
+            transparent 90%
+        );
+    }
+
+    .cinematic-seam--depth {
+        background: linear-gradient(
+            180deg,
+            var(--seam-color),
+            transparent
+        );
+    }
+
     .culinary-journal .journal-header {
-        padding-top: 96px;
+        padding-top: 80px;
+    }
+
+    .culinary-journal.has-cinematic-seam > .organic-background {
+        mask-image: linear-gradient(
+            180deg,
+            transparent,
+            #000 160px
+        );
     }
 }

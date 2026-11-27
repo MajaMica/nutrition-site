@@ -395,3 +395,89 @@
         gap: 16px;
     }
 }
+@media (max-width: 767px) {
+    .contact-orbit.is-mobile-cinematic .contact-stage {
+        height: 100svh;
+        overflow: clip;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-atmosphere {
+        background:
+            radial-gradient(
+                ellipse at 50% 45%,
+                rgba(132, 145, 107, .23),
+                transparent 65%
+            ),
+            linear-gradient(
+                180deg,
+                #141713,
+                #1c261c 50%,
+                #141713
+            );
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-orbits {
+        width: 155vw;
+        opacity: .85;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-scenes {
+        inset: calc(var(--header-height) + 48px) 0 145px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-title {
+        font-size: clamp(42px, 12.5vw, 82px);
+        line-height: .94;
+        letter-spacing: -.045em;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-scene-label {
+        margin-bottom: 18px;
+        font-size: 9px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-description {
+        max-width: 320px;
+        margin-top: 18px;
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-value {
+        margin-top: 12px;
+        font-size: 12px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-action {
+        width: 58px;
+        margin-top: 22px;
+        background: rgba(180, 154, 114, .05);
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-bottom {
+        bottom: 28px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-navigation {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 24px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-navigation a {
+        flex-direction: row;
+        align-items: center;
+        min-height: 36px;
+        gap: 8px;
+        font-size: 21px;
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-navigation a.is-active {
+        transform: none;
+        color: var(--color-gold);
+    }
+
+    .contact-orbit.is-mobile-cinematic .contact-progress {
+        margin-top: 18px;
+    }
+}

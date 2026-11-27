@@ -1,3 +1,4 @@
+
 @php
     $chapters = [
         [
@@ -16,11 +17,14 @@
             'description' => trans('home.services.chapters.2.description'),
         ],
     ];
+
+    $sequenceUrl = get_theme_file_uri('public/storytelling/services');
 @endphp
 
 <section id="services"
     class="services-film section-transition-source"
     data-services
+    data-sequence-url="{{ $sequenceUrl }}"
 >
     <div class="services-film-stage" data-services-stage>
 
@@ -38,6 +42,21 @@
                 type="video/mp4"
             >
         </video>
+
+        <img
+            class="services-film-first-frame"
+            src="{{ $sequenceUrl }}/frames/frame_000000.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+        >
+
+        <canvas
+            class="services-film-canvas"
+            data-services-canvas
+            aria-hidden="true"
+        ></canvas>
 
         <div class="services-film-overlay"></div>
 

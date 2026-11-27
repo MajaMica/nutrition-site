@@ -666,3 +666,107 @@
         gap: 12px;
     }
 }
+@media (max-width: 767px) {
+    .editorial-footer-home.is-mobile-cinematic .footer-stage {
+        height: 100svh;
+        overflow: clip;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-track {
+        display: flex;
+        width: max-content;
+        height: 100%;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-landscape {
+        background: linear-gradient(
+            110deg,
+            #e7e8da 0%,
+            #f4f0e6 30%,
+            #d4dac5 70%,
+            #e7e8da 100%
+        );
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-blob {
+        filter: blur(45px);
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-panel {
+        padding-top: calc(var(--header-height) + 18px);
+        padding-bottom: 28px;
+        gap: 12px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-panel-top,
+    .editorial-footer-home.is-mobile-cinematic .footer-panel-bottom {
+        flex-shrink: 0;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-headline {
+        font-size: clamp(48px, 13.5vw, 88px);
+        line-height: .9;
+        overflow-wrap: anywhere;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-headline em {
+        margin-left: 0;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-chapters {
+        padding-block: 8px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-chapters a {
+        grid-template-columns: 18px minmax(0, 1fr) 16px;
+        gap: 10px;
+        padding-block: clamp(7px, 1.4svh, 12px);
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-chapter-name {
+        font-size: clamp(24px, 7vw, 34px);
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-chapters a svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-wordmark {
+        font-size: clamp(64px, 21vw, 132px);
+        letter-spacing: -.065em;
+        line-height: .9;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-signature-content {
+        padding-block: 12px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-signature-top {
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-profession {
+        margin-top: 18px;
+        font-size: 10px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-socials {
+        margin-top: 24px;
+        gap: 12px 20px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-socials a {
+        font-size: 22px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-credits {
+        gap: 12px;
+        font-size: 10px;
+    }
+
+    .editorial-footer-home.is-mobile-cinematic .footer-progress {
+        height: 2px;
+    }
+}

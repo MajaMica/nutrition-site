@@ -167,3 +167,85 @@
         will-change: auto;
     }
 }
+
+@media (max-width: 767px) {
+    .is-mobile-cinematic [data-hero-stage] {
+        --hero-camera-scale: 1;
+        --hero-camera-y: 0px;
+        --hero-title-y: 0px;
+        --hero-title-opacity: 1;
+        --hero-light: 0;
+    }
+
+    .is-mobile-cinematic .hero-canvas,
+    .is-mobile-cinematic .hero-transition-canvas {
+        transform: translate3d(
+            0,
+            var(--hero-camera-y),
+            0
+        ) scale(var(--hero-camera-scale));
+
+        transform-origin: 50% 50%;
+        will-change: transform;
+    }
+
+    .is-mobile-cinematic .hero-content {
+        opacity: var(--hero-title-opacity);
+
+        transform: translate3d(
+            0,
+            var(--hero-title-y),
+            0
+        );
+
+        will-change: transform, opacity;
+    }
+
+    .is-mobile-cinematic .hero-content h1 {
+        font-size: clamp(54px, 14vw, 96px);
+        letter-spacing: -0.035em;
+        line-height: 0.95;
+
+        text-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.18),
+            0 12px 64px rgba(0, 0, 0, 0.28);
+    }
+
+    .is-mobile-cinematic .hero-overlay::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: radial-gradient(
+            ellipse at 50% 42%,
+            rgba(214, 200, 181, 0.08),
+            transparent 65%
+        );
+
+        opacity: var(--hero-light);
+        pointer-events: none;
+    }
+
+    .is-mobile-cinematic .hero-scroll {
+        will-change: opacity;
+    }
+}
+
+@media (max-width: 767px) {
+    .is-mobile-cinematic .hero-overlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(20, 23, 19, .15),
+                transparent 30%,
+                transparent 62%,
+                rgba(20, 23, 19, .48) 88%,
+                #141713 100%
+            ),
+            radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 0, .1),
+                rgba(0, 0, 0, .25)
+            );
+    }
+}

@@ -325,7 +325,7 @@ export class MobileFrameSequence {
                         }
                     ],
                     {
-                        duration: this.profile.hero.titleDuration,
+                        duration: 850,
                         easing: 'cubic-bezier(.22,1,.36,1)'
                     }
                 )
@@ -428,9 +428,65 @@ export class MobileFrameSequence {
 
         if (this.profile.reduced) return
 
-        const exit = this.clamp((progress - 0.94) / 0.06)
+        const scene = this.timeline[this.activeScene]
 
+        if (!scene) return
+
+        const local = this.clamp(
+            (this.playhead.position - scene.startFrame) /
+            Math.max(1, scene.frameCount - 1)
+        )
+
+        const smooth = local * local * (3 - 2 * local)
+
+        const camera = [
+            { from: 1.02, to: 1.12, y: -8, text: 22 },
+            { from: 1.12, to: 1.07, y: 6, text: 16 },
+            { from: 1.07, to: 1.15, y: -10, text: 28 },
+            { from: 1.15, to: 1.08, y: 5, text: 18 },
+            { from: 1.08, to: 1.00, y: 0, text: 12 }
+        ][this.activeScene]
+
+        if (!camera) return
+
+        const zoom =
+            camera.from + (camera.to - camera.from) * smooth
+
+        const movement =
+            Math.sin(local * Math.PI) * camera.y
+
+        const exit = this.clamp((progress - 0.94) / 0.06)
         const smoothExit = exit * exit * (3 - 2 * exit)
+
+        const titleOffset =
+            (0.5 - local) * camera.text - smoothExit * 30
+
+        const titleOpacity = 1 - smoothExit
+
+        this.stage.style.setProperty(
+            '--hero-camera-scale',
+            zoom.toFixed(4)
+        )
+
+        this.stage.style.setProperty(
+            '--hero-camera-y',
+            `${movement.toFixed(2)}px`
+        )
+
+        this.stage.style.setProperty(
+            '--hero-title-y',
+            `${titleOffset.toFixed(2)}px`
+        )
+
+        this.stage.style.setProperty(
+            '--hero-title-opacity',
+            titleOpacity.toFixed(4)
+        )
+
+        this.stage.style.setProperty(
+            '--hero-light',
+            Math.sin(local * Math.PI).toFixed(4)
+        )
 
         this.stage.style.setProperty(
             '--hero-exit',

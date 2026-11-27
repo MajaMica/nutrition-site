@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger } from '../core/animation-engine'
+import { getMotionProfile } from '../core/motion-profile'
 
 export function initLibrary() {
     const section = document.querySelector('[data-library]')
@@ -121,6 +122,125 @@ export function initLibrary() {
             }
         }
     )
+
+
+    mm.add({
+        mobile: '(max-width: 767px)',
+        tall: '(min-height: 640px)',
+        reduced: '(prefers-reduced-motion: reduce)'
+    }, context => {
+        const { mobile, tall } = context.conditions
+        const profile = getMotionProfile()
+
+        if (!mobile || !tall || profile.reduced) return
+
+        section.classList.add('is-mobile-cinematic')
+
+        gsap.set(area, {
+            autoAlpha: 0
+        })
+
+        gsap.set(book, {
+            rotationY: -55,
+            rotationX: 10,
+            rotationZ: -12,
+            scale: .45,
+            y: 70
+        })
+
+        gsap.set(details, {
+            autoAlpha: 0,
+            y: 30
+        })
+
+        const timeline = gsap.timeline({
+            defaults: {
+                ease: 'none'
+            },
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: '+=220%',
+                pin: stage,
+                scrub: .75,
+                invalidateOnRefresh: true
+            }
+        })
+
+        timeline
+            .fromTo(intro.children, {
+                y: 20
+            }, {
+                y: 0,
+                stagger: .1,
+                duration: .6
+            }, 0)
+
+            .to(intro, {
+                y: -50,
+                autoAlpha: 0,
+                scale: .96,
+                duration: .65,
+                ease: 'sine.inOut'
+            }, .8)
+
+            .to(area, {
+                autoAlpha: 1,
+                duration: .6
+            }, .95)
+
+            .to(book, {
+                rotationY: -18,
+                rotationX: 0,
+                rotationZ: -5,
+                scale: 1,
+                y: 0,
+                duration: 1.35,
+                ease: 'power2.out'
+            }, .95)
+
+            .to(book, {
+                rotationY: 14,
+                rotationZ: 3,
+                duration: .85,
+                ease: 'sine.inOut'
+            }, 2.3)
+
+            .to(area, {
+                y: () => -stage.clientHeight * .19,
+                duration: 1,
+                ease: 'power2.inOut'
+            }, 3.15)
+
+            .to(book, {
+                rotationY: -12,
+                rotationZ: -3,
+                scale: .78,
+                duration: 1,
+                ease: 'power2.inOut'
+            }, 3.15)
+
+            .to(details, {
+                autoAlpha: 1,
+                y: 0,
+                duration: .85,
+                ease: 'power2.out'
+            }, 3.65)
+
+            .to(watermark, {
+                x: -45,
+                duration: 5.2
+            }, 0)
+
+            .to(progress, {
+                scaleX: 1,
+                duration: 5.2
+            }, 0)
+
+        return () => {
+            section.classList.remove('is-mobile-cinematic')
+        }
+    })
 
     ScrollTrigger.refresh()
 }

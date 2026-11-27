@@ -303,3 +303,150 @@
         border-radius: 24px;
     }
 }
+@media (max-width: 767px) {
+    .nutrition-app.is-mobile-cinematic {
+        overflow: clip;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-stage {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 16px;
+        height: 100svh;
+        padding: calc(var(--header-height) + 16px)
+            var(--site-gutter) 48px;
+        background:
+            radial-gradient(
+                ellipse at 50% 35%,
+                #fffdf5,
+                transparent 65%
+            ),
+            var(--color-cream);
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-features {
+        display: grid;
+        grid-column: 1;
+        grid-row: 2;
+        align-items: end;
+        gap: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-feature {
+        grid-area: 1 / 1;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-intro {
+        text-align: center;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-mobile-screen {
+        display: none;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-device-area {
+        display: flex;
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        perspective: 1000px;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-device {
+        width: min(52vw, 230px, 25svh);
+        padding: 5px;
+        border-width: 1px;
+        border-radius: 28px;
+        box-shadow:
+            0 0 0 2px #242722,
+            8px 12px 0 -5px #30352e,
+            15px 25px 45px rgba(20, 23, 19, .2);
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-screen {
+        border-radius: 22px;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-orbit {
+        width: min(86vw, 420px, 46svh);
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-shadow {
+        bottom: 0;
+        width: 55%;
+        height: 24px;
+        filter: blur(16px);
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-watermark {
+        top: 36%;
+        font-size: 36vw;
+        color: rgba(38, 56, 43, .045);
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-heading {
+        font-size: clamp(36px, 9.5vw, 58px);
+        line-height: .98;
+        text-wrap: balance;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-feature-title {
+        font-size: clamp(34px, 9vw, 54px);
+        line-height: 1;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-eyebrow,
+    .nutrition-app.is-mobile-cinematic .nutrition-app-feature-label {
+        margin-bottom: 12px;
+        font-size: 10px;
+        letter-spacing: .16em;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-feature p {
+        max-width: 340px;
+        margin: 14px auto 0;
+        font-size: 13px;
+        line-height: 1.65;
+        text-wrap: pretty;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-badge {
+        margin-top: 16px;
+        padding: 8px 14px;
+        font-size: 9px;
+    }
+
+    .nutrition-app.is-mobile-cinematic .nutrition-app-navigation {
+        display: flex;
+        bottom: 20px;
+        gap: 14px;
+        font-size: 10px;
+    }
+
+    .nutrition-app.is-mobile-cinematic .organic-background {
+        opacity: .2;
+    }
+}
+
+@media (max-width: 767px) {
+    .nutrition-app.is-mobile-cinematic .nutrition-app-stage::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 40px;
+        background: linear-gradient(
+            transparent,
+            rgba(38, 56, 43, .12)
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+}

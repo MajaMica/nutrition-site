@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger } from '../core/animation-engine'
+import { getMotionProfile } from '../core/motion-profile'
 
 export function initNutritionAI() {
     const section = document.querySelector('[data-nutrition-ai]')
@@ -18,10 +19,23 @@ export function initNutritionAI() {
 
     const mm = gsap.matchMedia()
 
-    mm.add(
-        '(min-height: 650px) and (prefers-reduced-motion: no-preference)',
-        () => {
+    mm.add({
+        mobile: '(max-width: 767px)',
+        desktop: '(min-width: 768px)',
+        tall: '(min-height: 650px)',
+        mobileTall: '(min-height: 600px)',
+        reduced: '(prefers-reduced-motion: reduce)'
+    }, context => {
+            const { mobile, tall, mobileTall, reduced } = context.conditions
+            const profile = getMotionProfile()
+
+            if (mobile ? profile.reduced || !mobileTall : reduced || !tall) return
+
             section.classList.add('is-cinematic')
+
+            if (mobile) {
+                section.classList.add('is-mobile-cinematic')
+            }
 
             gsap.set(scenes, {
                 autoAlpha: 0
@@ -32,8 +46,8 @@ export function initNutritionAI() {
             })
 
             gsap.set(core, {
-                scale: .35,
-                rotation: -60,
+                scale: mobile ? .65 : .35,
+                rotation: mobile ? -15 : -60,
                 opacity: .35
             })
 
@@ -63,9 +77,9 @@ export function initNutritionAI() {
                 scrollTrigger: {
                     trigger: section,
                     start: 'top top',
-                    end: '+=320%',
+                    end: mobile ? '+=240%' : '+=320%',
                     pin: stage,
-                    scrub: 1.1,
+                    scrub: mobile ? .65 : 1.1,
                     invalidateOnRefresh: true
                 }
             })
@@ -85,8 +99,8 @@ export function initNutritionAI() {
                 }, 0)
 
                 .to(core, {
-                    scale: 2.8,
-                    rotation: 35,
+                    scale: mobile ? 1.5 : 2.8,
+                    rotation: mobile ? 10 : 35,
                     duration: .7
                 }, 1.2)
 
@@ -176,7 +190,7 @@ export function initNutritionAI() {
             })
 
             return () => {
-                section.classList.remove('is-cinematic')
+                section.classList.remove('is-cinematic', 'is-mobile-cinematic')
             }
         }
     )

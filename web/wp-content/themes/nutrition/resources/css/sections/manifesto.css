@@ -1,3 +1,4 @@
+
 .manifesto {
     position: relative;
     width: 100%;
@@ -106,19 +107,144 @@
 
 @media (max-width: 767px) {
     .manifesto {
-        padding-block: 100px;
+        isolation: isolate;
+        padding-block: 64px 80px;
+        overflow: clip;
+    }
+
+    .manifesto::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(
+            ellipse at 50% 25%,
+            rgba(132, 145, 107, 0.09),
+            transparent 65%
+        );
+    }
+
+    .manifesto-label {
+        margin-bottom: 24px;
     }
 
     .manifesto-title {
-        font-size: clamp(42px, 9vw, 72px);
+        font-size: clamp(48px, 12vw, 82px);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+    }
+
+    .manifesto-lead {
+        margin-top: 28px;
+        font-size: 15px;
+        line-height: 1.8;
     }
 
     .manifesto-details {
         grid-template-columns: minmax(0, 1fr);
-        gap: 32px;
+        gap: 24px;
+        margin-top: 48px;
+        padding-top: 32px;
     }
 
-    .manifesto-lead {
-        margin-top: 24px;
+    .manifesto-details h3 {
+        font-size: clamp(34px, 9vw, 52px);
+        line-height: 1.08;
+    }
+
+    .manifesto-copy {
+        gap: 20px;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .manifesto-link {
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 767px) {
+    .manifesto.is-mobile-cinematic {
+        --manifesto-light: 0;
+        --manifesto-line: 0;
+
+        padding-block: 0 40px;
+        overflow: clip;
+        isolation: isolate;
+    }
+
+    .manifesto.is-mobile-cinematic::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        background: radial-gradient(
+            ellipse at 50% 25%,
+            rgba(132, 145, 107, 0.16),
+            transparent 65%
+        );
+
+        opacity: var(--manifesto-light);
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-intro {
+    position: relative;
+    justify-content: center;
+    min-height: 0;
+    padding-block: 64px 24px;
+}
+
+    .manifesto.is-mobile-cinematic .manifesto-label {
+        margin-bottom: 36px;
+        letter-spacing: 0.22em;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-title {
+        position: relative;
+        font-size: clamp(46px, 12vw, 84px);
+        line-height: 1.02;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-title::after {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 1px;
+        margin: 32px auto 0;
+        background: var(--color-gold);
+        transform: scaleX(var(--manifesto-line));
+        transform-origin: center;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-line > span {
+        transform-origin: center;
+        will-change: transform, opacity;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-lead {
+        max-width: 340px;
+        margin-top: 28px;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-details {
+    margin-top: 0;
+    padding-block: 24px;
+    border-top: 0;
+}
+
+    .manifesto.is-mobile-cinematic .manifesto-details h3 {
+        font-size: clamp(38px, 10vw, 64px);
+        line-height: 1.04;
+        transform-origin: left center;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-copy {
+        gap: 24px;
+        line-height: 1.85;
+    }
+
+    .manifesto.is-mobile-cinematic .manifesto-link {
+        margin-top: 16px;
     }
 }

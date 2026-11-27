@@ -1,3 +1,4 @@
+import { getMotionProfile } from '../core/motion-profile'
 import { gsap, ScrollTrigger } from '../core/animation-engine'
 
 export function initNutritionApp() {
@@ -176,6 +177,153 @@ export function initNutritionApp() {
                     scaleX: timeline.progress()
                 })
             })
+        }
+    )
+
+
+    mm.add(
+        '(max-width: 767px) and (min-height: 640px)',
+        () => {
+            if (getMotionProfile().reduced) return
+
+            section.classList.add('is-mobile-cinematic')
+
+            gsap.set(features, {
+                autoAlpha: 0,
+                y: 18
+            })
+
+            gsap.set(features[0], {
+                autoAlpha: 1,
+                y: 0
+            })
+
+            gsap.set(screens, {
+                autoAlpha: 0
+            })
+
+            gsap.set(screens[0], {
+                autoAlpha: 1
+            })
+
+            gsap.set(device, {
+                rotationY: -14,
+                rotationZ: -7,
+                scale: .9,
+                y: 8
+            })
+
+            const timeline = gsap.timeline({
+                defaults: {
+                    ease: 'sine.inOut'
+                },
+                scrollTrigger: {
+                    trigger: story,
+                    start: 'top top',
+                    end: '+=280%',
+                    pin: stage,
+                    scrub: .45,
+                    invalidateOnRefresh: true
+                }
+            })
+
+            timeline.to(device, {
+                rotationY: -4,
+                rotationZ: -2,
+                scale: 1,
+                y: 0,
+                duration: .8
+            }, 0)
+
+            for (let index = 1; index < features.length; index++) {
+                const position = index - .2
+                const direction = index % 2 === 0 ? -1 : 1
+
+                timeline
+                    .to(features[index - 1], {
+                        autoAlpha: 0,
+                        y: -18,
+                        duration: .24
+                    }, position)
+
+                    .fromTo(features[index], {
+                        autoAlpha: 0,
+                        y: 18
+                    }, {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: .34,
+                        immediateRender: false
+                    }, position + .24)
+
+                    .to(device, {
+                        rotationY: direction * 10,
+                        rotationZ: direction * 4,
+                        scale: 1.015,
+                        y: -4,
+                        duration: .55
+                    }, position)
+
+                if (index > 1) {
+                    timeline
+                        .to(screens[index - 2], {
+                            autoAlpha: 0,
+                            duration: .28
+                        }, position + .12)
+
+                        .to(screens[index - 1], {
+                            autoAlpha: 1,
+                            duration: .28
+                        }, position + .12)
+                }
+            }
+
+            timeline.to(device, {
+                rotationY: 0,
+                rotationZ: 0,
+                scale: 1,
+                y: 0,
+                duration: .5
+            }, features.length - .5)
+
+            const duration = timeline.duration()
+
+            timeline
+                .to(watermark, {
+                    x: -36,
+                    duration,
+                    ease: 'none'
+                }, 0)
+
+                .to(orbit, {
+                    rotation: 30,
+                    scale: 1.08,
+                    duration,
+                    ease: 'none'
+                }, 0)
+
+                .to(progress, {
+                    scaleX: 1,
+                    duration,
+                    ease: 'none'
+                }, 0)
+
+            timeline.eventCallback('onUpdate', () => {
+                const index = Math.min(
+                    Math.max(
+                        Math.floor(timeline.time() + .06),
+                        0
+                    ),
+                    features.length - 1
+                )
+
+                counter.textContent = String(index).padStart(2, '0')
+            })
+
+            return () => {
+                section.classList.remove('is-mobile-cinematic')
+                counter.textContent = '00'
+            }
         }
     )
 

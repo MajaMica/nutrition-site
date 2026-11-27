@@ -117,31 +117,82 @@ export function initChefNote() {
     mm.add(
         '(max-width: 767px) and (prefers-reduced-motion: no-preference)',
         () => {
-            gsap.from(media, {
-                clipPath: 'inset(15% 0% 15% 0%)',
-                opacity: .5,
+            gsap.fromTo(image, {
+                scale: 1.12,
+                yPercent: -2
+            }, {
+                scale: 1.02,
+                yPercent: 0,
                 ease: 'none',
                 scrollTrigger: {
-                    trigger: media,
-                    start: 'top 95%',
-                    end: 'center 55%',
-                    scrub: 1
+                    trigger: section,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 0.45,
+                    invalidateOnRefresh: true
                 }
             })
 
-            ;[eyebrow, mark, first, second, author].forEach(element => {
-                gsap.from(element, {
-                    y: 32,
-                    opacity: 0,
-                    duration: .9,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: element,
-                        start: 'top 90%',
-                        once: true
-                    }
-                })
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section.querySelector('.chef-note-copy'),
+                    start: 'top 95%',
+                    end: 'top 25%',
+                    scrub: 0.4,
+                    invalidateOnRefresh: true
+                }
             })
+
+            timeline
+                .fromTo(eyebrow, {
+                    opacity: 0,
+                    y: 12
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                    ease: 'sine.out'
+                }, 0)
+
+                .fromTo(mark, {
+                    opacity: 0,
+                    y: 16
+                }, {
+                    opacity: 0.65,
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'sine.out'
+                }, 0.1)
+
+                .fromTo(first, {
+                    opacity: 0,
+                    yPercent: 35
+                }, {
+                    opacity: 1,
+                    yPercent: 0,
+                    duration: 0.4,
+                    ease: 'power2.out'
+                }, 0.15)
+
+                .fromTo(second, {
+                    opacity: 0,
+                    yPercent: 30
+                }, {
+                    opacity: 1,
+                    yPercent: 0,
+                    duration: 0.35,
+                    ease: 'power2.out'
+                }, 0.35)
+
+                .fromTo(author, {
+                    opacity: 0,
+                    y: 12
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                    ease: 'sine.out'
+                }, 0.55)
         }
     )
 

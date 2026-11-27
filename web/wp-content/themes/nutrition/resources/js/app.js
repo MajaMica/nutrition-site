@@ -40,8 +40,8 @@ async function init() {
     initLibrary()
     initContact()
     initOrganicBackgrounds()
-    initSectionTransitions()
     initFooter()
+    initSectionTransitions()
     initNavigation()
 }
 

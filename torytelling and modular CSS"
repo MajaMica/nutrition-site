@@ -1,0 +1,46 @@
+ .gitignore                                                |    3 [32m+[m[31m-[m
+ assets/images/logo.png                                    |  Bin [31m0[m -> [32m489077[m bytes
+ assets/images/logo.webp                                   |  Bin [31m0[m -> [32m40840[m bytes
+ assets/images/nemanja003.png                              |  Bin [31m0[m -> [32m1809942[m bytes
+ assets/images/nemanja004.png                              |  Bin [31m0[m -> [32m2201985[m bytes
+ assets/images/verticalscrol001.png                        |  Bin [31m0[m -> [32m2361589[m bytes
+ assets/images/verticalscrol002.png                        |  Bin [31m0[m -> [32m2315474[m bytes
+ web/wp-content/themes/nutrition/app/localization.php      |   19 [32m+[m
+ web/wp-content/themes/nutrition/functions.php             |   40 [32m+[m[31m-[m
+ web/wp-content/themes/nutrition/resources/css/app.css     |    2 [32m+[m
+ .../resources/css/components/organic-background.css       |   77 [32m++[m
+ .../resources/css/components/section-transition.css       |   55 [32m+[m
+ web/wp-content/themes/nutrition/resources/css/header.css  |  288 [32m++++[m[31m-[m
+ web/wp-content/themes/nutrition/resources/css/home.css    | 1497 [32m+[m[31m----------------------[m
+ .../themes/nutrition/resources/css/sections/hero.css      |   88 [32m++[m
+ .../themes/nutrition/resources/css/sections/journal.css   |  303 [32m+++++[m
+ .../themes/nutrition/resources/css/sections/manifesto.css |  124 [32m++[m
+ .../nutrition/resources/css/sections/nutrition-ai.css     |  156 [32m+++[m
+ .../nutrition/resources/css/sections/nutrition-app.css    |  275 [32m+++++[m
+ .../nutrition/resources/css/sections/performance.css      |  322 [32m+++++[m
+ .../nutrition/resources/css/sections/philosophy.css       |  202 [32m+++[m
+ .../themes/nutrition/resources/css/sections/services.css  |  138 [32m+++[m
+ .../nutrition/resources/images/performance/balance.webp   |  Bin [31m0[m -> [32m219096[m bytes
+ .../nutrition/resources/images/performance/coaching.webp  |  Bin [31m0[m -> [32m113820[m bytes
+ .../nutrition/resources/images/performance/nutrition.webp |  Bin [31m0[m -> [32m217448[m bytes
+ .../nutrition/resources/images/performance/strength.webp  |  Bin [31m0[m -> [32m165678[m bytes
+ web/wp-content/themes/nutrition/resources/js/app.js       |    6 [32m+[m
+ .../nutrition/resources/js/core/organic-background.js     |   48 [32m+[m
+ .../nutrition/resources/js/core/section-transition.js     |   48 [32m+[m
+ web/wp-content/themes/nutrition/resources/js/home.js      |  115 [32m+[m[31m-[m
+ .../themes/nutrition/resources/js/performance.js          |   99 [32m++[m
+ .../themes/nutrition/resources/lang/en/common.php         |   41 [32m+[m
+ .../themes/nutrition/resources/lang/en/home.php           |  213 [32m++++[m
+ .../themes/nutrition/resources/lang/sr/common.php         |   41 [32m+[m
+ .../themes/nutrition/resources/lang/sr/home.php           |  213 [32m++++[m
+ .../themes/nutrition/resources/views/front-page.blade.php |    3 [32m+[m[31m-[m
+ .../resources/views/partials/organic-background.blade.php |    6 [32m+[m
+ .../nutrition/resources/views/sections/header.blade.php   |  174 [32m++[m[31m-[m
+ .../nutrition/resources/views/sections/hero.blade.php     |    8 [32m+[m[31m-[m
+ .../resources/views/sections/manifesto.blade.php          |   26 [32m+[m[31m-[m
+ .../resources/views/sections/nutrition-app.blade.php      |   76 [32m+[m[31m-[m
+ .../resources/views/sections/performance.blade.php        |  117 [32m++[m
+ .../resources/views/sections/philosophy.blade.php         |   26 [32m+[m[31m-[m
+ .../nutrition/resources/views/sections/recipes.blade.php  |   94 [32m+[m[31m-[m
+ .../nutrition/resources/views/sections/services.blade.php |   23 [32m+[m[31m-[m
+ 45 files changed, 3219 insertions(+), 1747 deletions(-)
