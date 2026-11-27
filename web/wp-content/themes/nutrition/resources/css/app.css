@@ -9,9 +9,11 @@
 @import "./layout.css";
 @import "./typography.css";
 @import "./header.css";
+@import "./components/navigation.css";
 @import "./home.css";
 @import "./components/organic-background.css";
 @import "./components/section-transition.css";
+@import "./components/footer.css";
 
 @source "../../app/**/*.php";
 @source "../**/*.blade.php";

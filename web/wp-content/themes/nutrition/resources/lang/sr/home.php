@@ -231,4 +231,43 @@ return [
         'footer' => 'Pažljivo kreirano. Lično inspirisano.',
         'cta' => 'Istražite kulinarski dnevnik',
     ],
+        'books' => [
+        'eyebrow' => 'Kulinarska biblioteka',
+
+        'title' => [
+            'Više od tanjira.',
+            'Više od kuhinje.',
+        ],
+
+        'watermark' => 'Znanje',
+
+        'chapter' => 'Kolekcija',
+
+        'heading' => [
+            'Znanje.',
+            'Sa svrhom.',
+        ],
+
+        'description' => 'Istražite povezanost kulinarskog umeća i ishrane.',
+
+        'action' => 'Otkrijte knjigu',
+
+        'coming_soon' => 'Uskoro',
+
+        'image_alt' => 'Naslovnica knjige o kulinarskoj ishrani',
+    ],
+        'contact' => [
+        'eyebrow' => 'Završno poglavlje',
+        'title' => 'Šta je sledeće?',
+        'lead' => 'Vaš sledeći korak počinje ovde.',
+        'scroll' => 'Povežimo se',
+        'action' => 'Kontakt',
+        'channels' => [
+            'whatsapp' => 'Započnimo razgovor.',
+            'phone' => 'Razgovarajmo o vašim ciljevima.',
+            'email' => 'Recite mi šta imate na umu.',
+            'instagram' => 'Pratite moju priču.',
+            'linkedin' => 'Povežimo se profesionalno.',
+        ],
+    ],
 ];

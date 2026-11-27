@@ -23,7 +23,7 @@
     ];
 @endphp
 
-<section class="performance" data-performance>
+<section id="performance" class="performance" data-performance>
     <div class="performance-stage" data-performance-stage>
 
         <div class="performance-ambient" aria-hidden="true">

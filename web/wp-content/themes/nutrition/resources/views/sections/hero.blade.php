@@ -1,4 +1,4 @@
-<section
+<section id="home"
     class="cinematic-section"
     data-hero
     data-sequence-url="{{ get_theme_file_uri('public/storytelling') }}"

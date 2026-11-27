@@ -33,7 +33,7 @@
     ];
 @endphp
 
-<section
+<section id="journal"
     class="culinary-journal organic-surface section-transition"
     data-journal
     data-section-transition="[data-nutrition-ai]"

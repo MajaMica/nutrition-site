@@ -1,5 +1,5 @@
 <section
-    id="about"
+    id="chef-note"
     class="chef-note"
     data-chef-note
 >

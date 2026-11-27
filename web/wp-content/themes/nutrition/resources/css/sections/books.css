@@ -1,0 +1,302 @@
+.culinary-library {
+    position: relative;
+    isolation: isolate;
+    background: #1d2b21;
+    color: var(--color-cream);
+}
+
+.library-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100svh;
+    padding: 100px var(--site-gutter);
+}
+
+.library-ambient {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.library-ambient span {
+    position: absolute;
+    width: 65vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-olive);
+    filter: blur(120px);
+    opacity: .12;
+}
+
+.library-ambient span:first-child {
+    top: -30%;
+    right: -20%;
+}
+
+.library-ambient span:last-child {
+    bottom: -40%;
+    left: -20%;
+    background: var(--color-gold);
+    opacity: .08;
+}
+
+.library-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(120px, 23vw, 440px);
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--color-olive);
+    opacity: .07;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.library-intro {
+    text-align: center;
+}
+
+.library-label {
+    display: block;
+    margin-bottom: 32px;
+    color: var(--color-gold);
+    letter-spacing: .24em;
+}
+
+.library-title {
+    font-family: var(--font-display);
+    font-size: clamp(54px, 9vw, 160px);
+    font-weight: 400;
+    line-height: .95;
+    letter-spacing: -.035em;
+}
+
+.library-title span,
+.library-title em {
+    display: block;
+}
+
+.library-title em,
+.library-heading em {
+    color: var(--color-olive);
+    font-weight: 400;
+}
+
+.library-book-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1800px;
+    padding-block: 80px;
+}
+
+.library-book {
+    --book-depth: 28px;
+    position: relative;
+    width: min(65vw, 340px);
+    transform-style: preserve-3d;
+    transform: rotateY(-20deg) rotateZ(-6deg);
+}
+
+.library-book-front {
+    position: relative;
+    transform: translateZ(calc(var(--book-depth) / 2));
+    border-radius: 2px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    box-shadow: 0 12px 45px rgba(0, 0, 0, .22);
+}
+
+.library-book-front img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.library-book-pages {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 100%;
+    width: var(--book-depth);
+    transform-origin: left center;
+    transform: translateZ(calc(var(--book-depth) / 2)) rotateY(90deg);
+    background: repeating-linear-gradient(
+        90deg,
+        #e1d9c8 0,
+        #e1d9c8 2px,
+        #b8af9d 3px
+    );
+}
+
+.library-book-spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    width: var(--book-depth);
+    transform-origin: right center;
+    transform: translateZ(calc(var(--book-depth) / 2)) rotateY(-90deg);
+    background: #52665b;
+}
+
+.library-book-back {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(calc(var(--book-depth) / -2)) rotateY(180deg);
+    background: #52665b;
+    border-radius: 2px;
+    backface-visibility: hidden;
+}
+
+.library-book-shadow {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 65%;
+    height: 32px;
+    transform: translateX(-50%);
+    background: #080d09;
+    filter: blur(28px);
+    border-radius: 50%;
+    opacity: .6;
+    z-index: -1;
+}
+
+.library-details {
+    max-width: 620px;
+    margin-inline: auto;
+}
+
+.library-heading {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 110px);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.025em;
+}
+
+.library-heading em {
+    display: block;
+}
+
+.library-details p {
+    max-width: 440px;
+    margin-top: 32px;
+    color: var(--color-tan);
+    line-height: 1.8;
+}
+
+.library-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+    padding: 14px 24px;
+    border: 1px solid rgba(180, 154, 114, .4);
+    border-radius: 100px;
+    color: var(--color-gold);
+}
+
+.library-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-gold);
+}
+
+.library-navigation {
+    display: none;
+    position: absolute;
+    bottom: 36px;
+    left: var(--site-gutter);
+    right: var(--site-gutter);
+    align-items: center;
+    gap: 20px;
+    color: var(--color-gold);
+    font-size: 10px;
+}
+
+.library-progress {
+    flex: 1;
+    height: 1px;
+    background: rgba(180, 154, 114, .2);
+}
+
+.library-progress span {
+    display: block;
+    height: 100%;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.culinary-library.is-cinematic .library-stage {
+    height: 100svh;
+    min-height: 0;
+    padding: 0;
+}
+
+.culinary-library.is-cinematic .library-intro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-inline: var(--site-gutter);
+}
+
+.culinary-library.is-cinematic .library-book-area {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+}
+
+.culinary-library.is-cinematic .library-book {
+    width: min(27vw, 380px, 39vh);
+}
+
+.culinary-library.is-cinematic .library-book-shadow {
+    bottom: 12%;
+    width: 24%;
+}
+
+.culinary-library.is-cinematic .library-details {
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    right: var(--site-gutter);
+    transform: translateY(-50%);
+    margin: 0;
+}
+
+.culinary-library.is-cinematic .library-navigation {
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    .library-stage {
+        padding-block: 96px;
+    }
+
+    .library-details {
+        text-align: center;
+    }
+
+    .library-details p {
+        margin-inline: auto;
+    }
+
+    .library-book {
+        --book-depth: 18px;
+    }
+}

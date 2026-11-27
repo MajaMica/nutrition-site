@@ -10,4 +10,6 @@
     @include('sections.nutrition-app')
     @include('sections.nutrition-ai')
     @include('sections.recipes')
+    @include('sections.books')
+    @include('sections.contact')
 @endsection

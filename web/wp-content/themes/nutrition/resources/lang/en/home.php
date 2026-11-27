@@ -228,7 +228,47 @@ return [
             ],
         ],
 
-        'footer' => 'Thoughtfully created. Personally inspired.',
+       'footer' => 'Thoughtfully created. Personally inspired.',
         'cta' => 'Explore the culinary journal',
+    ],
+
+    'books' => [
+        'eyebrow' => 'The culinary library',
+
+        'title' => [
+            'Beyond the plate.',
+            'Beyond the kitchen.',
+        ],
+
+        'watermark' => 'Knowledge',
+
+        'chapter' => 'The collection',
+
+        'heading' => [
+            'Knowledge.',
+            'With purpose.',
+        ],
+
+        'description' => 'Explore the connection between culinary craft and nutrition.',
+
+        'action' => 'Discover the book',
+
+        'coming_soon' => 'Coming soon',
+
+        'image_alt' => 'Culinary nutrition book cover',
+    ],
+        'contact' => [
+        'eyebrow' => 'The final chapter',
+        'title' => "What's next?",
+        'lead' => 'Your next move starts here.',
+        'scroll' => 'Scroll to connect',
+        'action' => 'Connect',
+        'channels' => [
+            'whatsapp' => 'Start a conversation.',
+            'phone' => "Let's talk about your goals.",
+            'email' => 'Tell me what you have in mind.',
+            'instagram' => 'Follow the journey.',
+            'linkedin' => 'Make a professional connection.',
+        ],
     ],
 ];

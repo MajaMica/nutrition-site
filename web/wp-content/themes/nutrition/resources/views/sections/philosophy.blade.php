@@ -27,7 +27,7 @@
     ];
 @endphp
 
-<section class="philosophy" data-philosophy>
+<section id="about" class="philosophy" data-philosophy>
     <div class="philosophy-visual" data-philosophy-visual>
         @foreach ($chapters as $chapter)
             <div

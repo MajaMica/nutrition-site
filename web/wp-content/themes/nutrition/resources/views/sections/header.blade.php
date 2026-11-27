@@ -43,21 +43,46 @@
             </span>
         </a>
 
-        @if (has_nav_menu('primary_navigation'))
-            <nav
-                id="site-navigation"
-                class="site-navigation"
-                aria-label="{{ wp_get_nav_menu_name('primary_navigation') }}"
-            >
-                {!! wp_nav_menu([
-                    'theme_location' => 'primary_navigation',
-                    'menu_class' => 'site-menu',
-                    'container' => false,
-                    'fallback_cb' => false,
-                    'echo' => false,
-                ]) !!}
-            </nav>
-        @endif
+        @php
+            $chapters = [
+                'home' => 'home',
+                'about' => 'about',
+                'services' => 'services',
+                'performance' => 'performance',
+                'nutrition' => 'app',
+                'journal' => 'recipes',
+                'books' => 'books',
+                'contact' => 'contact',
+            ];
+        @endphp
+
+        <nav
+            id="site-navigation"
+            class="site-navigation"
+            aria-label="{{ trans('common.navigation.home') }}"
+            data-navigation
+        >
+            <ul class="site-menu">
+                @foreach ($chapters as $anchor => $label)
+                    <li>
+                        <a
+                            href="{{ $homeUrl }}#{{ $anchor }}"
+                            data-nav-link="{{ $anchor }}"
+                        >
+                            <span class="site-menu-number">
+                                {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                            </span>
+
+                            <span class="site-menu-label">
+                                {{ trans('common.navigation.' . $label) }}
+                            </span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+
+            <span class="site-menu-indicator" data-nav-indicator></span>
+        </nav>
 
         <div class="site-header-actions">
 
@@ -185,21 +210,24 @@
                 </svg>
             </a>
 
-            @if (has_nav_menu('primary_navigation'))
-                <button
+            <button
                     class="site-menu-toggle"
                     type="button"
                     aria-label="{{ trans('common.accessibility.open_menu') }}"
                     aria-expanded="false"
                     aria-controls="site-navigation"
                     data-menu-toggle
+                    data-open-label="{{ trans('common.accessibility.open_menu') }}"
+                    data-close-label="{{ trans('common.accessibility.close_menu') }}"
                 >
                     <span></span>
                     <span></span>
                 </button>
-            @endif
 
         </div>
 
+    </div>
+    <div class="site-scroll-progress" aria-hidden="true">
+        <span data-scroll-progress></span>
     </div>
 </header>

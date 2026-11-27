@@ -3,6 +3,8 @@ import 'lenis/dist/lenis.css'
 import { initAnimationEngine } from './core/animation-engine'
 import { initOrganicBackgrounds } from './core/organic-background'
 import { initSectionTransitions } from './core/section-transition'
+import { initNavigation } from './core/navigation'
+import { initFooter } from './core/footer'
 
 import {
     initHome,
@@ -13,7 +15,9 @@ import {
     initChefNote,
     initNutritionApp,
     initNutritionAI,
-    initJournal
+    initJournal,
+    initLibrary,
+    initContact
 } from './home'
 
 async function init() {
@@ -33,8 +37,12 @@ async function init() {
     initNutritionApp()
     initNutritionAI()
     initJournal()
+    initLibrary()
+    initContact()
     initOrganicBackgrounds()
     initSectionTransitions()
+    initFooter()
+    initNavigation()
 }
 
 if (document.readyState === 'loading') {
