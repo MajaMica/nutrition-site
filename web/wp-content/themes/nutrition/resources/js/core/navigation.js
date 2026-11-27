@@ -1,4 +1,9 @@
 import {
+    playChapterTransition,
+    isChapterTransitionRunning
+} from './chapter-transition'
+
+import {
     gsap,
     ScrollTrigger,
     initAnimationEngine
@@ -182,9 +187,24 @@ export function initNavigation() {
 
             if (language) language.open = false
 
-            history.pushState(null, '', `#${chapter.id}`)
+            if (isChapterTransitionRunning()) return
 
-            goTo(chapter)
+            const number = chapter.link.querySelector(
+                '.site-menu-number'
+            )?.textContent.trim() || ''
+
+            const title = chapter.link.querySelector(
+                '.site-menu-label'
+            )?.textContent.trim() || chapter.id
+
+            playChapterTransition({
+                number,
+                title,
+                navigate: () => {
+                    history.pushState(null, '', `#${chapter.id}`)
+                    goTo(chapter, true)
+                }
+            })
         })
     })
 

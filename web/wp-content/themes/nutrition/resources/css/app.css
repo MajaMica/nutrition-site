@@ -14,6 +14,7 @@
 @import "./components/organic-background.css";
 @import "./components/section-transition.css";
 @import "./components/footer.css";
+@import "./components/chapter-transition.css";
 
 @source "../../app/**/*.php";
 @source "../**/*.blade.php";
