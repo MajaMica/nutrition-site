@@ -196,5 +196,4 @@ export function initChefNote() {
         }
     )
 
-    ScrollTrigger.refresh()
 }

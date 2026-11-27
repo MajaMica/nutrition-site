@@ -34,8 +34,19 @@
                 class="philosophy-image"
                 data-philosophy-image="{{ $loop->index }}"
             >
+                @php
+                    $image = pathinfo($chapter['image'], PATHINFO_FILENAME);
+                    $base = 'resources/images/philosophy/responsive/' . $image;
+                @endphp
+
                 <img
-                    src="{{ Vite::asset('resources/images/philosophy/' . $chapter['image']) }}"
+                    src="{{ Vite::asset($base . '-960.webp') }}"
+                    srcset="
+                        {{ Vite::asset($base . '-640.webp') }} 640w,
+                        {{ Vite::asset($base . '-960.webp') }} 960w,
+                        {{ Vite::asset($base . '-1148.webp') }} 1148w
+                    "
+                    sizes="(max-width: 767px) max(164vw, 101vh), max(56vw, 94vh)"
                     alt="{{ $chapter['alt'] }}"
                     loading="lazy"
                     decoding="async"

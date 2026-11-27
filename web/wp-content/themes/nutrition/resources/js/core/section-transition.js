@@ -166,5 +166,4 @@ export function initSectionTransitions() {
         initDesktopTransitions
     )
 
-    ScrollTrigger.refresh()
 }

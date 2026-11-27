@@ -262,5 +262,4 @@ export function initPerformance() {
         }
     })
 
-    ScrollTrigger.refresh()
 }

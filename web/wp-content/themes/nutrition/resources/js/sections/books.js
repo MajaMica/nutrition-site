@@ -242,5 +242,4 @@ export function initLibrary() {
         }
     })
 
-    ScrollTrigger.refresh()
 }

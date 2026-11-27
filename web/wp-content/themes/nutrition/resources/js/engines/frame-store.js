@@ -17,6 +17,7 @@ export class FrameStore {
         this.target = 0
         this.direction = 1
         this.destroyed = false
+        this.paused = false
     }
 
     clamp(index) {
@@ -213,7 +214,7 @@ export class FrameStore {
     }
 
     process() {
-        if (this.destroyed) return
+        if (this.destroyed || this.paused) return
 
         while (
             this.pending.size < this.maxConcurrent &&
@@ -268,6 +269,16 @@ export class FrameStore {
                     this.process()
                 })
         }
+    }
+
+    pause() {
+        this.paused = true
+    }
+
+    resume() {
+        if (this.destroyed) return
+
+        this.paused = false
     }
 
     destroy() {

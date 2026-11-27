@@ -195,5 +195,4 @@ export function initNutritionAI() {
         }
     )
 
-    ScrollTrigger.refresh()
 }

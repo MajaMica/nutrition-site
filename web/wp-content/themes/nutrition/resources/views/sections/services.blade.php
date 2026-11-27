@@ -31,14 +31,14 @@
         <video
             class="services-film-video"
             data-services-video
-            poster="{{ Vite::asset('resources/images/services/private-chef.webp') }}"
+            data-poster="{{ Vite::asset('resources/images/services/private-chef.webp') }}"
             muted
             playsinline
-            preload="auto"
+            preload="none"
             aria-hidden="true"
         >
             <source
-                src="{{ Vite::asset('resources/videos/services/private-chef.mp4') }}"
+                data-src="{{ Vite::asset('resources/videos/services/private-chef.mp4') }}"
                 type="video/mp4"
             >
         </video>

@@ -214,5 +214,4 @@ export function initContact() {
         }
     )
 
-    ScrollTrigger.refresh()
 }

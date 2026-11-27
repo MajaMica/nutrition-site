@@ -14,6 +14,7 @@ export class FrameSequence {
         this.pending = new Map()
 
         this.currentFrame = 0
+        this.firstFrameMarked = false
         this.displayedFrame = null
         this.currentImage = null
         this.direction = 1
@@ -213,6 +214,14 @@ export class FrameSequence {
         this.context.drawImage(
             image, x, y, width, height
         )
+
+        if (!this.firstFrameMarked) {
+            this.firstFrameMarked = true
+
+            if (!performance.getEntriesByName('hero:first-frame').length) {
+                performance.mark('hero:first-frame')
+            }
+        }
     }
 
     applyGrade(index) {
@@ -262,10 +271,9 @@ export class FrameSequence {
             this.cache.delete(index)
             this.cache.set(index, image)
 
-            if (this.displayedFrame !== index) {
-                this.display(index, image)
-            }
+            if (this.displayedFrame === index) return
 
+            this.display(index, image)
             this.preload(index)
             return
         }

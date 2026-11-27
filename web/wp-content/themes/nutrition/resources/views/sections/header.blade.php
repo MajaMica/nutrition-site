@@ -26,7 +26,7 @@
         >
             <img
                 class="site-brand-logo"
-                src="{{ Vite::asset('resources/images/brand/logo.webp') }}"
+                src="{{ Vite::asset('resources/images/brand/optimized/logo.webp') }}"
                 alt=""
                 width="48"
                 height="48"

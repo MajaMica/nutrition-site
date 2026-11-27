@@ -1,3 +1,4 @@
+import { createCanvasLifecycle } from '../core/canvas-lifecycle'
 
 import { FrameStore } from './frame-store'
 import { DampedPlayhead } from './damped-playhead'
@@ -33,7 +34,10 @@ export class ServicesFrameSequence {
         this.raf = 0
 
         this.destroyed = false
+        this.sleeping = false
+        this.lifecycle = null
         this.needsDraw = true
+        this.presentationFrame = null
 
         this.controller = new AbortController()
 
@@ -86,7 +90,10 @@ export class ServicesFrameSequence {
         this.observer = new ResizeObserver(this.resize)
         this.observer.observe(this.stage)
 
-        this.raf = requestAnimationFrame(this.tick)
+        this.lifecycle = createCanvasLifecycle(this.section, {
+            wake: () => this.wake(),
+            sleep: () => this.sleep()
+        })
     }
 
     clamp(value, min = 0, max = 1) {
@@ -278,6 +285,10 @@ export class ServicesFrameSequence {
     }
 
     updatePresentation() {
+        if (this.displayedFrame === this.presentationFrame) return
+
+        this.presentationFrame = this.displayedFrame
+
         const progress = Math.max(
             0,
             this.displayedFrame
@@ -322,8 +333,31 @@ export class ServicesFrameSequence {
         )
     }
 
+    wake() {
+        if (this.destroyed || this.raf) return
+
+        this.sleeping = false
+        this.lastTime = 0
+        this.requestedFrame = -1
+
+        this.store?.resume()
+
+        this.raf = requestAnimationFrame(this.tick)
+    }
+
+    sleep() {
+        this.sleeping = true
+
+        cancelAnimationFrame(this.raf)
+
+        this.raf = 0
+        this.lastTime = 0
+
+        this.store?.pause()
+    }
+
     tick(time) {
-        if (this.destroyed) return
+        if (this.destroyed || this.sleeping) return
 
         this.raf = requestAnimationFrame(this.tick)
 
@@ -390,6 +424,7 @@ export class ServicesFrameSequence {
 
         cancelAnimationFrame(this.raf)
 
+        this.lifecycle?.destroy()
         this.observer?.disconnect()
         this.store?.destroy()
 

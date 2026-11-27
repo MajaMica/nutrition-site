@@ -160,5 +160,4 @@ export function initJournal() {
         }
     })
 
-    ScrollTrigger.refresh()
 }

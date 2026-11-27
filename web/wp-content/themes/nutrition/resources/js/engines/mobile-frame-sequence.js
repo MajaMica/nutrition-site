@@ -1,3 +1,4 @@
+import { createCanvasLifecycle } from '../core/canvas-lifecycle'
 
 import { FrameStore } from './frame-store'
 import { DampedPlayhead } from './damped-playhead'
@@ -37,6 +38,7 @@ export class MobileFrameSequence {
         this.dpr = 1
 
         this.activeScene = -1
+        this.firstFrameMarked = false
         this.displayedFrame = -1
         this.requestedFrame = -1
         this.requestedDirection = 0
@@ -47,7 +49,10 @@ export class MobileFrameSequence {
         this.raf = 0
 
         this.destroyed = false
+        this.sleeping = false
+        this.lifecycle = null
         this.needsDraw = true
+        this.presentationProgress = null
 
         this.tick = this.tick.bind(this)
         this.resize = this.resize.bind(this)
@@ -122,7 +127,10 @@ export class MobileFrameSequence {
 
         this.render(frame)
 
-        this.raf = requestAnimationFrame(this.tick)
+        this.lifecycle = createCanvasLifecycle(this.hero, {
+            wake: () => this.wake(),
+            sleep: () => this.sleep()
+        })
 
         await new Promise(resolve =>
             requestAnimationFrame(() =>
@@ -273,6 +281,14 @@ export class MobileFrameSequence {
         const y = (this.height - height) / 2
 
         this.context.drawImage(image, x, y, width, height)
+
+        if (!this.firstFrameMarked) {
+            this.firstFrameMarked = true
+
+            if (!performance.getEntriesByName('hero:first-frame').length) {
+                performance.mark('hero:first-frame')
+            }
+        }
     }
 
     captureTransition() {
@@ -441,6 +457,10 @@ export class MobileFrameSequence {
     }
 
     updatePresentation(progress) {
+        if (progress === this.presentationProgress) return
+
+        this.presentationProgress = progress
+
         if (this.indicator) {
             this.indicator.style.opacity =
                 Math.max(0, 1 - progress * 12)
@@ -458,8 +478,31 @@ export class MobileFrameSequence {
         )
     }
 
+    wake() {
+        if (this.destroyed || this.raf) return
+
+        this.sleeping = false
+        this.lastTime = 0
+        this.requestedFrame = -1
+
+        this.store?.resume()
+
+        this.raf = requestAnimationFrame(this.tick)
+    }
+
+    sleep() {
+        this.sleeping = true
+
+        cancelAnimationFrame(this.raf)
+
+        this.raf = 0
+        this.lastTime = 0
+
+        this.store?.pause()
+    }
+
     tick(time) {
-        if (this.destroyed) return
+        if (this.destroyed || this.sleeping) return
 
         this.raf = requestAnimationFrame(this.tick)
 
@@ -525,6 +568,7 @@ export class MobileFrameSequence {
 
         cancelAnimationFrame(this.raf)
 
+        this.lifecycle?.destroy()
         this.observer?.disconnect()
         this.titleAnimation?.cancel()
         this.transitionAnimation?.cancel()

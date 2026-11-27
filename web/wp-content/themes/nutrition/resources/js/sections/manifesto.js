@@ -207,5 +207,4 @@ export function initManifesto() {
         }
     })
 
-    ScrollTrigger.refresh()
 }

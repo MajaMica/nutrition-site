@@ -17,7 +17,7 @@
 
         <figure class="chef-note-media" data-note-media>
             <img
-                src="{{ Vite::asset('resources/images/chef-note/nemanja.webp') }}"
+                src="{{ Vite::asset('resources/images/chef-note/optimized/nemanja.webp') }}"
                 alt="{{ trans('home.chef_note.image_alt') }}"
                 loading="lazy"
                 decoding="async"

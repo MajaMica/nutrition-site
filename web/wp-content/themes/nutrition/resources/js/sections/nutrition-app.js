@@ -327,5 +327,4 @@ export function initNutritionApp() {
         }
     )
 
-    ScrollTrigger.refresh()
 }

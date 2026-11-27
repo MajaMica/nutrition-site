@@ -8,6 +8,8 @@ export async function initHome() {
 
     if (!hero) return
 
+    performance.mark('hero:init')
+
     const stage = hero.querySelector('[data-hero-stage]')
     const canvas = hero.querySelector('[data-hero-canvas]')
     const title = hero.querySelector('[data-hero-title]')
@@ -32,6 +34,8 @@ if (profile.hero.mobileSequence) {
         await mobileSequence.init()
 
         ScrollTrigger.refresh()
+
+        performance.mark('hero:ready')
 
         return
     } catch (error) {
@@ -203,4 +207,6 @@ if (profile.hero.mobileSequence) {
     })
 
     ScrollTrigger.refresh()
+
+    performance.mark('hero:ready')
 }

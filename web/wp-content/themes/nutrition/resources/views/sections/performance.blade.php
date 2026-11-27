@@ -73,7 +73,7 @@
 
                     <figure class="performance-image">
                         <img
-                            src="{{ Vite::asset('resources/images/performance/' . $chapter['image']) }}"
+                            src="{{ Vite::asset('resources/images/performance/optimized/' . $chapter['image']) }}"
                             alt="{{ trans('home.performance.chapters.' . $loop->index . '.alt') }}"
                             loading="lazy"
                             decoding="async"

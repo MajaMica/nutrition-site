@@ -1,4 +1,3 @@
-export { initHome } from './sections/hero'
 export { initPhilosophy } from './sections/philosophy'
 export { initManifesto } from './sections/manifesto'
 export { initServices } from './sections/services'

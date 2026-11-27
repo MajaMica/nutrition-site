@@ -3,6 +3,41 @@ import { ServicesFrameSequence } from '../engines/services-frame-sequence'
 import { gsap, ScrollTrigger } from '../core/animation-engine'
 import { getMotionProfile } from '../core/motion-profile'
 
+function deferServicesMedia(section, video, loadVideo) {
+    const source = video.querySelector('source[data-src]')
+
+    const activate = () => {
+        if (video.dataset.poster && !video.hasAttribute('poster')) {
+            video.poster = video.dataset.poster
+        }
+
+        if (loadVideo && source && !source.hasAttribute('src')) {
+            source.src = source.dataset.src
+            video.preload = 'auto'
+            video.load()
+        }
+    }
+
+    if (!('IntersectionObserver' in window)) {
+        activate()
+        return () => {}
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return
+
+        activate()
+        observer.disconnect()
+    }, {
+        rootMargin: '1200px 0px',
+        threshold: 0
+    })
+
+    observer.observe(section)
+
+    return () => observer.disconnect()
+}
+
 function initMobileServices(section, stage, video, chapters) {
     const canvas = section.querySelector('[data-services-canvas]')
 
@@ -35,20 +70,47 @@ function initMobileServices(section, stage, video, chapters) {
 
     sequence.setProgress(trigger.progress)
 
-    sequence.init().catch(error => {
-        if (sequence.destroyed) return
+    let observer = null
+    let started = false
 
-        console.warn('Services sequence:', error)
+    const activate = () => {
+        if (started || sequence.destroyed) return
 
-        sequence.destroy()
-        trigger.kill()
+        started = true
+        observer?.disconnect()
 
-        section.classList.remove('is-mobile-cinematic')
+        sequence.init().catch(error => {
+            if (sequence.destroyed) return
 
-        ScrollTrigger.refresh()
-    })
+            console.warn('Services sequence:', error)
+
+            sequence.destroy()
+            trigger.kill()
+
+            section.classList.remove('is-mobile-cinematic')
+
+            deferServicesMedia(section, video, false)
+            ScrollTrigger.refresh()
+        })
+    }
+
+    if ('IntersectionObserver' in window) {
+        observer = new IntersectionObserver(entries => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                activate()
+            }
+        }, {
+            rootMargin: '1600px 0px',
+            threshold: 0
+        })
+
+        observer.observe(section)
+    } else {
+        activate()
+    }
 
     return () => {
+        observer?.disconnect()
         sequence.destroy()
         trigger.kill()
 
@@ -124,7 +186,10 @@ function initDesktopServices(section, stage, video, chapters) {
         }
     })
 
+    const stopMediaObserver = deferServicesMedia(section, video, true)
+
     return () => {
+        stopMediaObserver()
         video.pause()
         video.removeEventListener('loadedmetadata', renderVideo)
     }
@@ -155,7 +220,9 @@ export function initServices() {
         const profile = getMotionProfile()
 
         if (mobile) {
-            if (profile.reduced || !tall) return
+            if (profile.reduced || !tall) {
+                return deferServicesMedia(section, video, false)
+            }
 
             return initMobileServices(
                 section,
@@ -173,7 +240,8 @@ export function initServices() {
                 chapters
             )
         }
+
+        return deferServicesMedia(section, video, false)
     })
 
-    ScrollTrigger.refresh()
 }

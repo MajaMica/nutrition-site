@@ -326,5 +326,4 @@ export function initPhilosophy() {
         }
     })
 
-    ScrollTrigger.refresh()
 }

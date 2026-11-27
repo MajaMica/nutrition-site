@@ -68,7 +68,7 @@
 
                         <figure class="journal-card-media">
                             <img
-                                src="{{ Vite::asset('resources/images/recipes/' . $recipe['image']) }}"
+                                src="{{ Vite::asset('resources/images/recipes/optimized/' . $recipe['image']) }}"
                                 alt="{{ $recipe['category'] }}"
                                 loading="lazy"
                                 decoding="async"
