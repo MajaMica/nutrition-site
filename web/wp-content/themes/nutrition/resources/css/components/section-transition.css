@@ -14,18 +14,12 @@
     z-index: 1;
 }
 
-.nutrition-app-intro {
-    background: var(--color-cream);
-    padding-top: clamp(100px, 12vw, 200px);
-}
-
 .nutrition-app-story {
     background: var(--color-cream);
 }
 
 .nutrition-ai {
     background: #0d0d0d;
-    padding-top: clamp(100px, 12vw, 180px);
     z-index: 2;
 }
 
@@ -47,8 +41,6 @@
 }
 
 @media (max-width: 767px) {
-    .nutrition-app-intro,
-    .nutrition-ai,
     .culinary-journal .journal-header {
         padding-top: 96px;
     }

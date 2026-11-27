@@ -118,6 +118,27 @@ return [
             ],
         ],
     ],
+        'chef_note' => [
+        'eyebrow' => 'Čovek iza filozofije',
+        'quote_first' => 'Vrhunske performanse počinju kvalitetnom ishranom.',
+        'quote_second' => 'Ali izuzetna hrana uvek treba da bude i uživanje.',
+        'role' => 'Privatni šef kuhinje i sportska ishrana',
+        'image_alt' => 'Šef Nemanja pažljivo servira jelo',
+        'stats' => [
+            'experience' => [
+                'value' => '10+',
+                'label' => 'Godina iskustva',
+            ],
+            'disciplines' => [
+                'value' => '02',
+                'label' => 'Oblasti stručnosti',
+            ],
+            'location' => [
+                'value' => 'UAE',
+                'label' => 'Sa sedištem u Abu Dabiju',
+            ],
+        ],
+    ],
 
     'nutrition_app' => [
         'eyebrow' => 'Novo poglavlje u ishrani',

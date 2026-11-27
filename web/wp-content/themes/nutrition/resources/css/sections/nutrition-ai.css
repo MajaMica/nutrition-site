@@ -1,107 +1,170 @@
 .nutrition-ai {
     position: relative;
-    padding:
-        clamp(180px, 18vw, 320px)
-        var(--site-gutter)
-        clamp(100px, 12vw, 220px);
-    background: linear-gradient(
-        180deg,
-        var(--color-cream),
-        #0d0d0d 30%
-    );
-    color: #fff;
+    background: #0d0d0d;
+    color: var(--color-cream);
+    --ai-accent: #b0ff43;
 }
 
-.nutrition-ai-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.nutrition-ai-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100svh;
+    background: #0d0d0d;
+}
+
+.nutrition-ai-atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.nutrition-ai-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(176, 255, 67, .085),
+        transparent 65%
+    );
+}
+
+.nutrition-ai-orbits {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(90vw, 1100px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+}
+
+.nutrition-ai-orbits span {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(176, 255, 67, .13);
+    border-radius: 50%;
+}
+
+.nutrition-ai-orbits span:nth-child(2) {
+    inset: 10%;
+}
+
+.nutrition-ai-orbits span:nth-child(3) {
+    inset: 20%;
+}
+
+.nutrition-ai-orbits span:nth-child(4) {
+    inset: 30%;
+}
+
+.nutrition-ai-orbits span:nth-child(5) {
+    inset: 40%;
+}
+
+.nutrition-ai-scene {
+    position: relative;
+    min-height: 65svh;
+    display: flex;
     align-items: center;
-    gap: clamp(48px, 8vw, 140px);
-    max-width: 1440px;
-    margin-inline: auto;
+    justify-content: center;
+    padding: 100px var(--site-gutter);
+}
+
+.nutrition-ai-awakening,
+.nutrition-ai-statement,
+.nutrition-ai-ending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.nutrition-ai-awakening {
+    gap: 40px;
+}
+
+.nutrition-ai-core {
+    display: block;
+    color: var(--ai-accent);
+    font-size: clamp(100px, 18vw, 300px);
+    line-height: 1;
+    text-shadow:
+        0 0 40px rgba(176, 255, 67, .3),
+        0 0 120px rgba(176, 255, 67, .15);
 }
 
 .nutrition-ai-label {
-    display: block;
-    margin-bottom: 28px;
-    color: #b3ff47;
+    color: var(--ai-accent);
+    letter-spacing: .24em;
+}
+
+.nutrition-ai-statement {
+    width: 100%;
+    gap: clamp(24px, 3vw, 48px);
 }
 
 .nutrition-ai-title {
     font-family: var(--font-display);
-    font-size: clamp(48px, 5vw, 96px);
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-weight: 400;
+    font-size: clamp(52px, 9vw, 170px);
+    line-height: .95;
+    letter-spacing: -.035em;
+}
+
+.nutrition-ai-title span,
+.nutrition-ai-title em {
+    display: block;
 }
 
 .nutrition-ai-title em {
-    display: block;
-    color: #b3ff47;
+    color: var(--ai-accent);
     font-weight: 400;
 }
 
-.nutrition-ai-copy p {
-    max-width: 480px;
-    margin-top: 32px;
-    color: #a0a0a0;
-    line-height: 1.85;
+.nutrition-ai-statement p {
+    max-width: 560px;
+    color: #b5b8b0;
+    line-height: 1.8;
 }
 
-.nutrition-ai-status {
-    display: inline-block;
-    margin-top: 32px;
-    color: #b3ff47;
-}
-
-.nutrition-ai-preview {
+.nutrition-ai-conversation {
+    width: min(100%, 850px);
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    padding: clamp(24px, 3vw, 48px);
-    border: 1px solid #2a2a2a;
-    border-radius: 24px;
-    background: #1a1a1a;
-    box-shadow: 0 20px 100px rgba(179, 255, 71, 0.04);
+    gap: clamp(28px, 5vw, 64px);
 }
 
-.nutrition-ai-preview-header {
+.nutrition-ai-conversation-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #2a2a2a;
-    font-size: 14px;
+    justify-content: center;
+    gap: 16px;
+    color: var(--ai-accent);
 }
 
 .nutrition-ai-symbol {
-    color: #b3ff47;
-    font-size: 24px;
+    flex-shrink: 0;
+    color: var(--ai-accent);
+    font-size: 32px;
     line-height: 1;
-}
-
-.nutrition-ai-preview-dot {
-    width: 6px;
-    height: 6px;
-    margin-left: auto;
-    border-radius: 50%;
-    background: #b3ff47;
-    box-shadow: 0 0 12px rgba(179, 255, 71, 0.4);
 }
 
 .nutrition-ai-message {
     align-self: flex-end;
-    max-width: 90%;
-    padding: 16px 20px;
-    border-radius: 18px 18px 4px 18px;
-    background: #2a2a2a;
-    font-size: 14px;
-    line-height: 1.6;
+    max-width: 85%;
+    padding: 22px 32px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 32px 32px 4px 32px;
+    background: rgba(255, 255, 255, .045);
+    font-size: clamp(16px, 1.5vw, 22px);
 }
 
 .nutrition-ai-response {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 24px;
 }
 
 .nutrition-ai-response > div {
@@ -110,47 +173,133 @@
 }
 
 .nutrition-ai-response p {
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.5vw, 56px);
+    line-height: 1.15;
 }
 
 .nutrition-ai-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    gap: 16px;
+    margin-top: 32px;
 }
 
 .nutrition-ai-lines span {
     display: block;
+    height: 3px;
     width: 100%;
-    height: 6px;
-    border-radius: 100px;
-    background: #353535;
+    border-radius: 3px;
+    background: rgba(176, 255, 67, .25);
     transform-origin: left center;
 }
 
 .nutrition-ai-lines span:nth-child(2) {
-    width: 85%;
+    width: 82%;
+    opacity: .7;
 }
 
 .nutrition-ai-lines span:nth-child(3) {
-    width: 65%;
+    width: 58%;
+    opacity: .45;
 }
 
-.nutrition-ai-preview-footer {
-    padding-top: 20px;
-    border-top: 1px solid #2a2a2a;
-    color: #a0a0a0;
+.nutrition-ai-preview-label {
+    text-align: center;
     font-size: 11px;
+    letter-spacing: .12em;
+    color: #999d94;
 }
 
-@media (max-width: 767px),
-       (prefers-reduced-motion: reduce) {
-    .nutrition-ai-inner {
-        grid-template-columns: minmax(0, 1fr);
+.nutrition-ai-ending {
+    gap: 32px;
+}
+
+.nutrition-ai-ending .nutrition-ai-symbol {
+    font-size: 64px;
+}
+
+.nutrition-ai-ending h3 {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 10vw, 160px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.nutrition-ai-ending-line {
+    width: 1px;
+    height: 90px;
+    background: linear-gradient(
+        var(--ai-accent),
+        transparent
+    );
+}
+
+.nutrition-ai-navigation {
+    display: none;
+    position: absolute;
+    bottom: 36px;
+    left: var(--site-gutter);
+    right: var(--site-gutter);
+    align-items: center;
+    gap: 20px;
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: var(--ai-accent);
+}
+
+.nutrition-ai-progress {
+    flex: 1;
+    height: 1px;
+    background: rgba(176, 255, 67, .15);
+}
+
+.nutrition-ai-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ai-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.nutrition-ai.is-cinematic .nutrition-ai-stage {
+    height: 100svh;
+    min-height: 0;
+}
+
+.nutrition-ai.is-cinematic .nutrition-ai-scene {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    padding-top: calc(var(--header-height) + 24px);
+    padding-bottom: 80px;
+}
+
+.nutrition-ai.is-cinematic .nutrition-ai-navigation {
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    .nutrition-ai-scene {
+        min-height: 60svh;
+        padding-block: 72px;
     }
 
-    .nutrition-ai-preview {
-        gap: 20px;
+    .nutrition-ai-orbits {
+        width: 150vw;
+    }
+
+    .nutrition-ai-message {
+        max-width: 95%;
+        padding: 18px 22px;
+    }
+
+    .nutrition-ai-response {
+        gap: 16px;
+    }
+
+    .nutrition-ai-conversation {
+        gap: 36px;
     }
 }

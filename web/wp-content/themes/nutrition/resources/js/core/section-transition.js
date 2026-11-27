@@ -21,7 +21,7 @@ export function initSectionTransitions() {
 
                 if (
                     source.matches('[data-services]') ||
-                    source.matches('[data-app-story]')
+                    source.matches('[data-app-story]') || source.matches('[data-nutrition-ai]')
                 ) {
                     return
                 }

@@ -6,6 +6,8 @@
     @include('sections.manifesto')
     @include('sections.services')
     @include('sections.performance')
+    @include('sections.chef-note')
     @include('sections.nutrition-app')
+    @include('sections.nutrition-ai')
     @include('sections.recipes')
 @endsection

@@ -118,6 +118,27 @@ return [
             ],
         ],
     ],
+        'chef_note' => [
+        'eyebrow' => 'The person behind the philosophy',
+        'quote_first' => 'Great performance begins with great nutrition.',
+        'quote_second' => 'But exceptional food should always be a pleasure.',
+        'role' => 'Private Chef & Performance Nutrition',
+        'image_alt' => 'Chef Nemanja carefully plating a dish',
+        'stats' => [
+            'experience' => [
+                'value' => '10+',
+                'label' => 'Years of experience',
+            ],
+            'disciplines' => [
+                'value' => '02',
+                'label' => 'Disciplines',
+            ],
+            'location' => [
+                'value' => 'UAE',
+                'label' => 'Abu Dhabi based',
+            ],
+        ],
+    ],
 
     'nutrition_app' => [
         'eyebrow' => 'The next chapter in nutrition',

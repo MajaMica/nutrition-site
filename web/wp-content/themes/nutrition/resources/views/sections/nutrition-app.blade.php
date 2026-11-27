@@ -32,44 +32,59 @@
 @endphp
 
 <section
+    id="nutrition"
     class="nutrition-app section-transition"
     data-nutrition-app
 >
-    <div class="nutrition-app-intro">
-        <span class="type-label nutrition-app-eyebrow">
-            {{ trans('home.nutrition_app.eyebrow') }}
-        </span>
-
-        <h2 class="nutrition-app-heading">
-            {{ trans('home.nutrition_app.title.0') }}<br>
-            <em>{{ trans('home.nutrition_app.title.1') }}</em>
-        </h2>
-
-        <p class="type-body nutrition-app-lead">
-            {{ trans('home.nutrition_app.lead') }}
-        </p>
-
-        <span class="nutrition-app-badge type-label">
-            <span></span>
-            {{ trans('home.nutrition_app.badge') }}
-        </span>
-    </div>
-
     <div
-    class="nutrition-app-story section-transition-source"
-    data-app-story
->
-        <div class="nutrition-app-stage" data-app-stage>
+        class="nutrition-app-story section-transition-source"
+        data-app-story
+    >
+        <div
+            class="nutrition-app-stage organic-surface"
+            data-app-stage
+        >
+            @include('partials.organic-background')
 
-            <div class="nutrition-app-watermark" aria-hidden="true">
+            <div
+                class="nutrition-app-watermark"
+                aria-hidden="true"
+                data-app-watermark
+            >
                 {{ trans('home.nutrition_app.watermark') }}
             </div>
 
             <div class="nutrition-app-features">
+
+                <article
+                    class="nutrition-app-feature nutrition-app-intro"
+                    data-app-feature="0"
+                >
+                    <span class="type-label nutrition-app-eyebrow">
+                        {{ trans('home.nutrition_app.eyebrow') }}
+                    </span>
+
+                    <h2 class="nutrition-app-heading">
+                        {{ trans('home.nutrition_app.title.0') }}
+                        <em>
+                            {{ trans('home.nutrition_app.title.1') }}
+                        </em>
+                    </h2>
+
+                    <p class="type-body nutrition-app-lead">
+                        {{ trans('home.nutrition_app.lead') }}
+                    </p>
+
+                    <span class="nutrition-app-badge type-label">
+                        <span></span>
+                        {{ trans('home.nutrition_app.badge') }}
+                    </span>
+                </article>
+
                 @foreach ($features as $feature)
                     <article
                         class="nutrition-app-feature"
-                        data-app-feature="{{ $loop->index }}"
+                        data-app-feature="{{ $loop->iteration }}"
                     >
                         <span class="type-label nutrition-app-feature-label">
                             {{ $feature['number'] }} —
@@ -83,11 +98,27 @@
                         <p class="type-body">
                             {{ $feature['description'] }}
                         </p>
+
+                        <figure class="nutrition-app-mobile-screen">
+                            <img
+                                src="{{ Vite::asset('resources/images/app/' . $feature['image']) }}"
+                                alt="{{ trans('home.nutrition_app.screen_alt', ['number' => $feature['number']]) }}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </figure>
                     </article>
                 @endforeach
+
             </div>
 
             <div class="nutrition-app-device-area">
+
+                <div class="nutrition-app-orbit" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                </div>
+
                 <div class="nutrition-app-device" data-app-device>
                     <div class="nutrition-app-screen">
                         @foreach ($features as $feature)
@@ -104,75 +135,17 @@
                 </div>
 
                 <div class="nutrition-app-shadow"></div>
+
             </div>
 
             <div class="nutrition-app-navigation">
-                <span data-app-counter>01</span>
+                <span data-app-counter>00</span>
 
                 <div class="nutrition-app-progress">
                     <span data-app-progress></span>
                 </div>
 
                 <span>04</span>
-            </div>
-
-        </div>
-    </div>
-
-    <div
-    class="nutrition-ai section-transition section-transition-source"
-    data-nutrition-ai
-    data-section-transition="[data-app-story]"
->
-        <div class="nutrition-ai-inner">
-
-            <div class="nutrition-ai-copy">
-                <span class="type-label nutrition-ai-label">
-                    {{ trans('home.nutrition_app.ai.label') }}
-                </span>
-
-                <h2 class="nutrition-ai-title">
-                    {{ trans('home.nutrition_app.ai.title.0') }}
-                    <em>{{ trans('home.nutrition_app.ai.title.1') }}</em>
-                </h2>
-
-                <p class="type-body">
-                    {{ trans('home.nutrition_app.ai.description') }}
-                </p>
-
-                <span class="nutrition-ai-status type-label">
-                    {{ trans('home.nutrition_app.ai.status') }}
-                </span>
-            </div>
-
-            <div class="nutrition-ai-preview">
-                <div class="nutrition-ai-preview-header">
-                    <span class="nutrition-ai-symbol">✳</span>
-                    {{ trans('home.nutrition_app.ai.assistant') }}
-                    <span class="nutrition-ai-preview-dot"></span>
-                </div>
-
-                <div class="nutrition-ai-message">
-                    {{ trans('home.nutrition_app.ai.message') }}
-                </div>
-
-                <div class="nutrition-ai-response">
-                    <span class="nutrition-ai-symbol">✳</span>
-
-                    <div>
-                        <p>{{ trans('home.nutrition_app.ai.response') }}</p>
-
-                        <div class="nutrition-ai-lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="nutrition-ai-preview-footer">
-                    {{ trans('home.nutrition_app.ai.preview') }}
-                </div>
             </div>
 
         </div>

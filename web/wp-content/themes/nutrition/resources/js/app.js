@@ -10,7 +10,9 @@ import {
     initManifesto,
     initServices,
     initPerformance,
+    initChefNote,
     initNutritionApp,
+    initNutritionAI,
     initJournal
 } from './home'
 
@@ -27,7 +29,9 @@ async function init() {
     initManifesto()
     initServices()
     initPerformance()
+    initChefNote()
     initNutritionApp()
+    initNutritionAI()
     initJournal()
     initOrganicBackgrounds()
     initSectionTransitions()
