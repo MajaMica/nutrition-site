@@ -15,7 +15,7 @@ Application::configure()
     ])
     ->boot();
 
-collect(['setup', 'filters', 'localization', 'shop', 'seo'])
+collect(['setup', 'filters', 'localization', 'shop', 'seo', 'performance'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(
