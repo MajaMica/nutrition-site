@@ -22,7 +22,7 @@ An immersive digital experience combining scroll-driven visual narratives, custo
 ## Production Performance
 
 ![Desktop Performance](https://img.shields.io/badge/Desktop_Performance-100-00C853?style=for-the-badge)
-![Mobile Performance](https://img.shields.io/badge/Mobile_Performance-94-00C853?style=for-the-badge)
+![Mobile Performance](https://img.shields.io/badge/Mobile_Performance-97-00C853?style=for-the-badge)
 
 The website underwent a dedicated performance engineering phase focused on critical rendering, JavaScript execution, animation lifecycle management and progressive asset delivery.
 
@@ -35,24 +35,24 @@ The website underwent a dedicated performance engineering phase focused on criti
 
 | Metric | Desktop | Mobile |
 |---|---:|---:|
-| Performance | 100 | 94 |
+| Performance | 100 | 97 |
 | Accessibility | 96 | 95 |
 | Best Practices | 100 | 100 |
 | SEO | 100 | 100 |
 | First Contentful Paint | 0.3 s | 1.0 s |
 | Largest Contentful Paint | 0.3 s | 1.0 s |
-| Total Blocking Time | 40 ms | 240 ms |
+| Total Blocking Time | 40 ms | 180 ms |
 | Cumulative Layout Shift | 0.004 | 0.002 |
-| Speed Index | 1.0 s | 3.7 s |
+| Speed Index | 0.9 s | 2.4 s |
 
 ### Before & After Optimization
 
 | Metric | Before | After | Improvement |
 |---|---:|---:|---:|
 | Desktop Performance | 66 | 100 | +34 points |
-| Mobile Performance | 83 | 94 | +11 points |
+| Mobile Performance | 83 | 97 | +14 points |
 | Desktop TBT | 1,000 ms | 40 ms | 96% reduction |
-| Mobile TBT | 640 ms | 240 ms | 62.5% reduction |
+| Mobile TBT | 640 ms | 180 ms | 71.9% reduction |
 | Desktop LCP | 0.4 s | 0.3 s | 25% reduction |
 | Mobile LCP | 1.5 s | 1.0 s | 33.3% reduction |
 
