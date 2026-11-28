@@ -1,7 +1,7 @@
 # Nemanja Chef — Cinematic Web Experience
 
 ![WordPress](https://img.shields.io/badge/WordPress-Sage-21759B?style=flat-square)
-![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?style=flat-square)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square)
 ![Blade](https://img.shields.io/badge/Template-Blade-FF2D20?style=flat-square)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES_Modules-F7DF1E?style=flat-square)
@@ -9,9 +9,9 @@
 ![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Production-238636?style=flat-square)
 
-A custom-built cinematic storytelling website for a private chef specializing in culinary wellness, personalized nutrition and athletic performance in Abu Dhabi.
+A custom WordPress website for a private chef in Abu Dhabi, designed and developed from scratch with Roots Sage. The homepage uses scroll-driven Canvas image sequences and video, with separate desktop and mobile implementations.
 
-An immersive digital experience combining scroll-driven visual narratives, custom canvas rendering, modular frontend architecture and performance engineering.
+The main technical challenge was keeping the animation responsive without loading hundreds of frames upfront or allowing decoded images to accumulate in memory. The theme uses Blade templates, Tailwind CSS and JavaScript modules rather than a visual page builder.
 
 **Live website:** [nemanjachef.com](https://nemanjachef.com/)
 
@@ -24,7 +24,7 @@ An immersive digital experience combining scroll-driven visual narratives, custo
 ![Desktop Performance](https://img.shields.io/badge/Desktop_Performance-100-00C853?style=for-the-badge)
 ![Mobile Performance](https://img.shields.io/badge/Mobile_Performance-97-00C853?style=for-the-badge)
 
-The website underwent a dedicated performance engineering phase focused on critical rendering, JavaScript execution, animation lifecycle management and progressive asset delivery.
+These are the final production results from the November 28, 2026 Lighthouse audits. During development, I focused on getting the first hero frame on screen early, reducing main-thread work and limiting animation activity outside the visible area.
 
 <p align="center">
   <img src="docs/images/desktop.png" width="49%" alt="Google PageSpeed Insights desktop performance report">
@@ -45,32 +45,11 @@ The website underwent a dedicated performance engineering phase focused on criti
 | Cumulative Layout Shift | 0.004 | 0.002 |
 | Speed Index | 0.9 s | 2.4 s |
 
-### Before & After Optimization
-
-| Metric | Before | After | Improvement |
-|---|---:|---:|---:|
-| Desktop Performance | 66 | 100 | +34 points |
-| Mobile Performance | 83 | 97 | +14 points |
-| Desktop TBT | 1,000 ms | 40 ms | 96% reduction |
-| Mobile TBT | 640 ms | 180 ms | 71.9% reduction |
-| Desktop LCP | 0.4 s | 0.3 s | 25% reduction |
-| Mobile LCP | 1.5 s | 1.0 s | 33.3% reduction |
-
 These results were achieved without relying on dedicated WordPress performance or page-cache plugins.
 
 [Run a live Google PageSpeed analysis](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fnemanjachef.com%2F)
 
 > Results are based on individual production Lighthouse audits recorded on November 28, 2026. Laboratory scores may vary depending on device capabilities, network conditions and testing environments. They do not represent aggregated real-user performance data.
-
-## Project Overview
-
-Nemanja Chef was developed as a bespoke digital experience rather than a conventional template-based website.
-
-The project combines editorial design, cinematic motion and interactive storytelling with a custom WordPress architecture.
-
-The primary engineering challenge was delivering a visually rich, animation-intensive experience while maintaining responsive layouts, controlled resource consumption and fast initial rendering.
-
-The frontend was built without visual page builders, using reusable Blade components, modular stylesheets and dedicated JavaScript animation modules.
 
 ## Visual Experience
 
@@ -97,25 +76,9 @@ The frontend was built without visual page builders, using reusable Blade compon
   </tr>
 </table>
 
-## Core Features
-
-- Cinematic scroll-driven storytelling
-- Custom HTML5 Canvas rendering engines
-- Independent desktop and mobile image sequences
-- Adaptive animation interpolation
-- Direction-aware frame preloading
-- Bounded frame caching and controlled concurrent loading
-- Visibility-aware animation lifecycle management
-- Scroll-controlled video playback
-- Cinematic chapter navigation
-- Responsive editorial layouts
-- Multilingual content architecture
-- Dedicated WooCommerce storefront foundation
-- Custom SEO metadata and structured data
-
 ## Cinematic Animation Architecture
 
-The cinematic experience is powered by a modular JavaScript architecture built around GSAP, ScrollTrigger, Lenis and custom frame sequence engines.
+GSAP ScrollTrigger maps scroll progress to the animation timeline. Lenis handles smooth scrolling on desktop, while the custom sequence engines handle frame selection and Canvas rendering. Frame loading and caching are kept separate from the renderer so that scroll updates do not have to manage network requests directly.
 
 ### Image Sequence Architecture
 
@@ -125,9 +88,7 @@ The cinematic experience is powered by a modular JavaScript architecture built a
 | Mobile Hero | 330 | 576 × 1024 | Canvas |
 | Mobile Services | 121 | 576 × 1024 | Canvas |
 
-The project contains 1,344 frames across its primary cinematic sequences.
-
-Frames are loaded progressively according to the current animation position rather than downloading complete sequences during the initial page load.
+There are 1,344 frames in total. Loading the full sequences at startup would delay the first render and increase memory pressure, particularly on mobile. Instead, `frame-store.js` prioritizes frames near the current playhead, accounts for scroll direction and limits both the cache and concurrent requests.
 
 ### Hero Narrative
 
@@ -139,21 +100,15 @@ The hero experience is divided into five cinematic chapters:
 4. Balance
 5. Performance
 
-Each chapter contributes to a continuous scroll-driven visual narrative.
-
-Scene configuration is managed through sequence manifests, allowing frame ranges, scene weights, visual grading and motion behavior to be configured independently of the rendering engine.
+Sequence manifests define frame ranges, scene weights, visual grading and motion settings. This keeps chapter timing and composition separate from the rendering code, so changing a scene does not require rewriting the engine.
 
 ### Desktop Experience
 
-The desktop rendering engine integrates canvas-based image sequences with GSAP ScrollTrigger and Lenis smooth scrolling.
-
-Scroll progress determines the active scene and target frame, while direction-aware preloading prepares nearby frames for subsequent interactions.
+On desktop, scroll progress selects the active scene and target frame. The renderer updates in response to animation and frame availability rather than maintaining a continuous rendering loop while idle. Direction-aware loading prepares nearby frames as the user scrolls.
 
 ### Mobile Experience
 
-The mobile experience uses dedicated portrait-oriented image sequences rather than simply resizing desktop assets.
-
-Native touch scrolling, adaptive playhead damping, controlled canvas resolution and bounded image caches provide a device-specific rendering strategy.
+Mobile uses separately composed portrait sequences rather than cropping the desktop footage. This preserves the composition and allows a smaller frame resolution. Native touch scrolling, adaptive playhead damping and bounded caches are used to accommodate mobile input and resource constraints.
 
 ### Services Experience
 
@@ -162,7 +117,7 @@ The Services section implements two separate rendering approaches:
 - Desktop: scroll-controlled cinematic video.
 - Mobile: dedicated canvas-based image sequence.
 
-Non-critical media initialization is deferred until the section approaches the viewport.
+The mobile sequence gives the renderer direct control over frame selection instead of depending on video seeking during touch scrolling. Non-critical media initialization is deferred until the section approaches the viewport.
 
 ## Animation Engine
 
@@ -197,52 +152,23 @@ flowchart TD
     J --> F
 ```
 
-The animation system separates scroll input, scene mapping, frame selection, resource loading and visual presentation.
-
-This separation allows individual components to be optimized without redesigning the entire storytelling experience.
+`damped-playhead.js` handles interpolation between the current and target positions. `frame-store.js` manages requests and cached frames, while the sequence engines decide what to draw. `canvas-lifecycle.js` coordinates mobile rendering and new frame requests with viewport proximity and document visibility.
 
 ## Performance Engineering
 
-Performance optimization is implemented at the application, rendering and asset-delivery levels.
+### Initial load
 
-### Critical Rendering
+The first hero frame is preloaded according to the viewport. Hero initialization takes priority over secondary storytelling modules, which are loaded through dynamic imports. Services media is deferred until it is needed. ScrollTrigger refresh calls were reduced during development, while retaining the refreshes needed for layout and chapter navigation.
 
-- Responsive first-frame preloading
-- High-priority hero image requests
-- Prioritized hero initialization
-- Dynamic imports for secondary storytelling modules
-- Deferred non-critical media loading
-- Independent storefront assets
+### Runtime
 
-### Runtime Optimization
+The mobile hero and Services engines suspend their animation loops and pause new frame loading when their sections are outside the observation area or the document is hidden. On reactivation, the engines resume from the current scroll state. Redundant presentation updates are skipped, and frame requests are prioritized according to the playhead and scroll direction.
 
-- Removal of redundant ScrollTrigger refresh operations
-- Visibility-aware canvas rendering
-- Suspension of new frame loading outside active observation areas
-- Animation suspension when the document becomes hidden
-- Direction-aware frame request prioritization
-- Bounded frame caches
-- Controlled concurrent requests
-- Reduced redundant presentation updates
+### Assets and WordPress
 
-### Asset Delivery
+Photography uses responsive WebP variants, cinematic sequences and video are compressed, and fonts are served locally as WOFF2. Vite generates hashed production assets that can be cached long-term; server-side compression is also enabled.
 
-- Responsive WebP photography
-- Optimized cinematic image sequences
-- Compressed video assets
-- Local WOFF2 typography
-- Variable font support
-- Vite-generated hashed production assets
-- Long-term caching for immutable build resources
-- Server-side compression
-
-### WordPress Optimization
-
-- Conditional frontend asset loading
-- Removal of unnecessary WooCommerce assets from the storytelling homepage
-- Modular theme functionality
-- Separate storytelling and storefront presentation layers
-- No dedicated performance or page-cache plugin dependency
+The storytelling homepage does not need WooCommerce's frontend assets. `app/performance.php` removes unnecessary assets conditionally, leaving the storefront with its own presentation and asset loading. No dedicated WordPress performance or page-cache plugin is required for the reported results.
 
 ## Technology Stack
 
@@ -251,7 +177,7 @@ Performance optimization is implemented at the application, rendering and asset-
 | CMS | WordPress |
 | Theme Framework | Roots Sage |
 | Application Foundation | Roots Acorn |
-| Backend | PHP 8.3 |
+| Backend | PHP 8.4 (production), PHP 8.3 (local DDEV) |
 | Templating | Blade |
 | Styling | Tailwind CSS 4, Modular CSS |
 | Frontend | JavaScript ES Modules |
@@ -309,16 +235,14 @@ The structure above highlights the primary theme components rather than every fi
 
 ## Multilingual Architecture
 
-The website supports English and Serbian through Polylang and custom translation resources.
+English and Serbian are managed through Polylang and custom translation resources.
 
 | Language | Production URL |
 |---|---|
 | English | [nemanjachef.com](https://nemanjachef.com/) |
 | Serbian | [nemanjachef.com/sr/](https://nemanjachef.com/sr/) |
 
-Both language versions share the same presentation and animation architecture.
-
-Localization is separated from visual components to avoid maintaining duplicate frontend implementations.
+Both languages use the same Blade components and animation modules. Translation resources are kept separate so that layout and animation changes do not need to be implemented twice.
 
 ## SEO & Discoverability
 
@@ -335,13 +259,9 @@ The theme includes a custom SEO implementation covering:
 
 ## Nemanja Editions
 
-The project includes a dedicated WooCommerce foundation for digital culinary publications.
+The theme includes a separate WooCommerce storefront for planned digital culinary publications. It has its own templates, styles and animation modules, keeping transactional functionality separate from the storytelling homepage.
 
-The storefront has its own visual identity, templates, styling and animation modules.
-
-Its architecture separates the editorial storytelling experience from transactional functionality and avoids loading unnecessary storefront assets on the main homepage.
-
-The storefront is currently in pre-launch mode.
+The storefront is in pre-launch mode; the live editorial website is in production.
 
 ## Local Development
 
@@ -349,7 +269,7 @@ The storefront is currently in pre-launch mode.
 
 - Docker
 - DDEV
-- PHP 8.3
+- PHP 8.3 (current DDEV configuration; production runs PHP 8.4)
 - Composer
 - Node.js 22
 - npm
@@ -386,34 +306,9 @@ Large production image sequences, database credentials and environment-specific 
 
 The repository documents the application architecture and is not intended to be a standalone, one-click reproduction of the production website.
 
-## Engineering Principles
-
-- Modular and maintainable application architecture
-- Separation of rendering and resource management
-- Device-specific rendering strategies
-- Progressive asset delivery
-- Performance-conscious motion design
-- Minimal unnecessary dependencies
-- Reusable presentation components
-- Production-oriented development
-
-## Project Status
-
-| Component | Status |
-|---|---|
-| Cinematic storytelling website | Production |
-| Desktop experience | Implemented |
-| Mobile experience | Implemented |
-| Multilingual architecture | Implemented |
-| Performance optimization | Implemented |
-| Custom SEO | Implemented |
-| Digital storefront | Pre-launch |
-
 ## Developer
 
 **ZenCodeLab**
-
-Custom web development, full-stack engineering, frontend architecture and performance-driven digital experiences.
 
 - [Portfolio](https://zencodelab.dev/)
 - [GitHub](https://github.com/MajaMica)
